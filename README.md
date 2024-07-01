@@ -10,11 +10,11 @@ You have 5 crisps in your bag (you are a “fun size” packet). As ingredients
 fall, swipe up/down/left/right to move yourself under those ingredients! Try 
 to catch ones that match your bag’s flavour, matched as follows:
 
-Ready Salted - Salt
-Cheese & Onion- Onion
-Prawn Cocktail - Prawn
-Tomato - Tomato
-Smoky Bacon - Bacon                     
+- Ready Salted - Salt
+- Cheese & Onion- Onion
+- Prawn Cocktail - Prawn
+- Tomato - Tomato
+- Smoky Bacon - Bacon
 
 (Bad items being the wrong ingredients)
 
