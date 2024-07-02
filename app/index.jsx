@@ -5,30 +5,31 @@ import {
   GestureHandlerRootView,
   Gesture,
   GestureDetector,
-  Directions,
-  FlingGestureHandler,
 } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 import { StyleSheet } from 'react-native';
 
 const Home = () => {
-  const translateX = useSharedValue(0);
-  const translateY = useSharedValue(0);
-  const contextX = useSharedValue(0);
-  const contextY = useSharedValue(0);
+  const originX = useSharedValue(0);
+  const originY = useSharedValue(0);
 
   const gesture = Gesture.Pan()
-    .onBegin((e) => {
-      //console.log('begin', e);
+    .onTouchesDown((e) => {
+      originX.value = e.allTouches[0].absoluteX;
+      originY.value = e.allTouches[0].absoluteY;
     })
-    .onFinalize((e) => {
-      //console.log('end', e);
-      console.log('x', e.absoluteX, e.x);
-      console.log('y', e.absoluteY, e.y);
+    .onTouchesCancelled((e) => {
+      const diffX = originX.value - e.allTouches[0].absoluteX;
+      const diffY = originY.value - e.allTouches[0].absoluteY;
+
+      if (diffX > 0 && Math.abs(diffX) > Math.abs(diffY)) console.log('left');
+      if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY)) console.log('right');
+      if (diffY > 0 && Math.abs(diffX) < Math.abs(diffY)) console.log('up');
+      if (diffY < 0 && Math.abs(diffX) < Math.abs(diffY)) console.log('down');
     });
 
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <GestureHandlerRootView>
       <GestureDetector gesture={gesture}>
         <Canvas>
           <directionalLight position={[1, 0, 0]} args={['white', 2]} />
