@@ -52,7 +52,7 @@ const RegisterForm = ({ navigation }) => {
         <Button
           style={styles.Button2}
           title="Submit"
-          onPress={handleSubmit(onSubmit)}
+          
           onPress={() => navigation.navigate("title")}
         />
 
