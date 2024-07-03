@@ -1,36 +1,33 @@
-import { Suspense, useState, } from 'react';
-import { View, Text, Button, Stylesheet, } from 'react-native';
-import { Canvas } from '@react-three/fiber/native';
 import useControls from 'r3f-native-orbitcontrols';
-import Crisp from '../components/3dModel/Crisp';
+import HomeScreen from '../screens/home';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import SignupScreen from '../screens/signup';
+import LoginScreen from '../screens/login';
+import TitleScreen from '../screens/titlescreen';
+import InstructionsScreen from '../screens/instructions';
+import { Game } from '../components/Game';
+
+
+const Stack = createStackNavigator();
 
 const Home = () => {
   const [OrbitControls, events] = useControls();
-  const [fooState, setFooState] = useState(false);
-  
-  function toggleFooState() {
-    setFooState((currentFooState) => !currentFooState);
-  }
-  
-  
-  return (<>
-    <Canvas>
-      <OrbitControls enablePan={false} enableZoom={false} />
-      <directionalLight position={[1, 0, 0]} args={['white', 2]} />
-      <directionalLight position={[-1, 0, 0]} args={['white', 2]} />
-      <directionalLight position={[0, 0, 1]} args={['white', 2]} />
-      <directionalLight position={[0, 0, -1]} args={['white', 2]} />
-      <directionalLight position={[0, 1, 0]} args={['white', 15]} />
-      <directionalLight position={[0, -1, 0]} args={['white', 2]} />
-      <Suspense fallback={null}>
-        <Crisp fooState={fooState} setFooState={setFooState} />
-      </Suspense>
-    </Canvas>
-    <View>
-      <Button onPress={toggleFooState} title="Click me! I do things." color="blue" />
-      <Text>{fooState ? 'foo!' : 'no foo!'}</Text>
-    </View>
-  </>);
-};
+  return (
+
+   <NavigationContainer independent={true} >
+
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name='signup' component={SignupScreen} options={{ headerShown: true }}/>
+        <Stack.Screen name='login' component={LoginScreen}/>
+        <Stack.Screen name='title' component={TitleScreen}/>
+        <Stack.Screen name='how-to-play' component={InstructionsScreen}/>
+        <Stack.Screen name='game' component={Game}/>
+
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default Home;

@@ -10,7 +10,16 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/PermanentMarker-Regular.ttf"]
+        }
+      ]
+    ]  
+      
     },
     "ios": {
       "supportsTablet": true
@@ -27,10 +36,12 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
     }
   }
+  
 }
