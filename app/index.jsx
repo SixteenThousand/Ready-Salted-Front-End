@@ -27,10 +27,10 @@ const Home = () => {
         <Stack.Screen name='login' component={LoginScreen}/>
         <Stack.Screen name='title' component={TitleScreen}/>
         <Stack.Screen name='how-to-play' component={InstructionsScreen}/>
-          <Game />;
+        <Stack.Screen name='game' component={Game}/>
 
       </Stack.Navigator>
     </NavigationContainer>
   );
-
+}
 export default Home;
