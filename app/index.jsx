@@ -1,7 +1,4 @@
-import { Canvas } from '@react-three/fiber/native';
 import useControls from 'r3f-native-orbitcontrols';
-import { Suspense } from 'react';
-import Crisp from '../components/3dModel/Crisp';
 import HomeScreen from '../screens/home';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
