@@ -1,4 +1,5 @@
 
+
 import useControls from 'r3f-native-orbitcontrols';
 import HomeScreen from '../screens/home';
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,6 +8,7 @@ import SignupScreen from '../screens/signup';
 import LoginScreen from '../screens/login';
 import TitleScreen from '../screens/titlescreen';
 import InstructionsScreen from '../screens/instructions';
+import { Game } from '../components/Game';
 
 
 
@@ -25,10 +27,10 @@ const Home = () => {
         <Stack.Screen name='login' component={LoginScreen}/>
         <Stack.Screen name='title' component={TitleScreen}/>
         <Stack.Screen name='how-to-play' component={InstructionsScreen}/>
+          <Game />;
 
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
 
 export default Home;
