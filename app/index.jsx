@@ -23,7 +23,7 @@ const Home = () => {
       <directionalLight position={[0, 1, 0]} args={['white', 15]} />
       <directionalLight position={[0, -1, 0]} args={['white', 2]} />
       <Suspense fallback={null}>
-        <Crisp />
+        <Crisp fooState={fooState} setFooState={setFooState} />
       </Suspense>
     </Canvas>
     <View>
