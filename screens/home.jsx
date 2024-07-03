@@ -7,8 +7,10 @@ import {
 } from "react-native";
 import React from "react";
 import styles from "../styles";
+import SignupScreen from "./signup";
 
-export default function HomeScreen() {
+
+export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Image
@@ -18,10 +20,10 @@ export default function HomeScreen() {
         style={styles.Image}
         source={require("../assets/images/Ingenious idea-3.png")}
         resizeMode="cover">
-      <TouchableOpacity style={styles.Button1}>
-        <Text style={styles.ButtonText}>Create User</Text>
+      <TouchableOpacity style={styles.Button1} onPress={() => navigation.navigate('signup')}>
+        <Text style={styles.ButtonText}>Create New User</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.Button2}>
+      <TouchableOpacity style={styles.Button2} onPress={() => navigation.navigate('login')}>
         <Text style={styles.ButtonText}>      Login      </Text>
       </TouchableOpacity>
 

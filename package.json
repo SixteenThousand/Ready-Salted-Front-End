@@ -15,6 +15,8 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.17",
+    "@react-navigation/stack": "^6.4.0",
     "@react-three/drei": "^9.106.0",
     "@react-three/fiber": "^8.16.7",
     "expo": "~51.0.9",
@@ -26,6 +28,7 @@
     "r3f-native-orbitcontrols": "^1.0.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.52.1",
     "react-native": "0.74.1",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-reanimated": "~3.10.1",

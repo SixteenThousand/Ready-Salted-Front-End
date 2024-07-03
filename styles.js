@@ -9,7 +9,6 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   Text: {
-    fontStyle: 'SanFrancisco',
     fontSize: 50,
     color: 'red',
     textAlign: 'center'
@@ -39,10 +38,28 @@ export default StyleSheet.create({
     margin: 15,
     borderRadius: 5,
   },
+  Button3: {
+    backgroundColor: 'green',
+    padding: 15,
+    margin: 15,
+    borderRadius: 5,
+  },
   ButtonText: {
     color: 'white',
     textAlign: 'center',
-    fontSize: 20, // Increase font size for button text
-    fontWeight: 'bold', // Make the text bold
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 4,
+    borderColor: '#ccc',
+    padding: 5,
+    marginBottom: 20,
+    width: '40%',
   },
 }) 
