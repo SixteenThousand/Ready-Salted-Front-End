@@ -19,7 +19,7 @@ import {
                   <Text style={styles.ButtonText}>Start Game</Text>
               </TouchableOpacity> 
 
-             <TouchableOpacity style={styles.Button2}>
+             <TouchableOpacity style={styles.Button2} onPress={() => navigation.navigate('how-to-play')}>
                   <Text style={styles.ButtonText}>How To Play</Text>
             </TouchableOpacity>   
 
