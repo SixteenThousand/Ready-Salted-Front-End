@@ -1,3 +1,4 @@
+
 import useControls from 'r3f-native-orbitcontrols';
 import HomeScreen from '../screens/home';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,11 +9,14 @@ import TitleScreen from '../screens/titlescreen';
 import InstructionsScreen from '../screens/instructions';
 
 
-const Stack = createStackNavigator()
+
+
+const Stack = createStackNavigator();
 
 const Home = () => {
   const [OrbitControls, events] = useControls();
   return (
+
    <NavigationContainer independent={true} >
 
       <Stack.Navigator initialRouteName='Home'>
@@ -21,8 +25,9 @@ const Home = () => {
         <Stack.Screen name='login' component={LoginScreen}/>
         <Stack.Screen name='title' component={TitleScreen}/>
         <Stack.Screen name='how-to-play' component={InstructionsScreen}/>
+
       </Stack.Navigator>
-   </NavigationContainer>
+    </NavigationContainer>
   );
 };
 
