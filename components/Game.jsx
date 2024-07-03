@@ -7,12 +7,15 @@ import {
   GestureDetector,
 } from 'react-native-gesture-handler';
 import Crisp from './3dModel/Crisp';
+import { animated, useSpring } from '@react-spring/three';
 
 export const Game = () => {
   const [crispX, setCrispX] = useState(0);
   const [crispZ, setCrispZ] = useState(0);
   const [touchDownX, setTouchDownX] = useState(0);
   const [touchDownY, setTouchDownY] = useState(0);
+  const { positionX } = useSpring({ positionX: crispX });
+  const { positionZ } = useSpring({ positionZ: crispZ });
 
   const gesture = Gesture.Pan()
     .runOnJS(true)
@@ -46,9 +49,9 @@ export const Game = () => {
           <directionalLight position={[0, -1, 0]} args={['white', 2]} />
           <Suspense fallback={null}>
             <Float floatIntensity={3} speed={2}>
-              <group position-x={crispX} position-z={crispZ}>
+              <animated.group position-x={positionX} position-z={positionZ}>
                 <Crisp />
-              </group>
+              </animated.group>
             </Float>
           </Suspense>
           <gridHelper args={[4, 2]} />
