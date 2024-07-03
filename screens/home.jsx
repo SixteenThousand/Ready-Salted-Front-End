@@ -10,17 +10,19 @@ import styles from "../styles";
 
 export default function HomeScreen() {
   return (
-    <View>
-      <Text style={styles.Text}>Ready Salted</Text>
+    <View style={styles.container}>
+      <Image
+      style={styles.Logo}
+      source={require("../assets/images/Designer-2.jpg")} />
       <ImageBackground
         style={styles.Image}
         source={require("../assets/images/Ingenious idea-3.png")}
         resizeMode="cover">
       <TouchableOpacity style={styles.Button1}>
-        <Text>Press Here</Text>
+        <Text style={styles.ButtonText}>Create User</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.Button2}>
-        <Text>Press Here</Text>
+        <Text style={styles.ButtonText}>      Login      </Text>
       </TouchableOpacity>
 
       </ImageBackground>
