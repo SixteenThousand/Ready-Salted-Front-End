@@ -31,7 +31,7 @@ const Home = () => {
   return (
     <GestureHandlerRootView>
       <GestureDetector gesture={gesture}>
-        <Canvas>
+        <Canvas camera={{ position: [3, 3, 3] }}>
           <directionalLight position={[1, 0, 0]} args={['white', 2]} />
           <directionalLight position={[-1, 0, 0]} args={['white', 2]} />
           <directionalLight position={[0, 0, 1]} args={['white', 2]} />
@@ -41,6 +41,7 @@ const Home = () => {
           <Suspense fallback={null}>
             <Crisp />
           </Suspense>
+          <gridHelper args={[4, 2]} />
         </Canvas>
       </GestureDetector>
     </GestureHandlerRootView>
