@@ -48,7 +48,7 @@ const SimpleForm = ({navigation}) => {
           />
         )}
       />
-      <Button style={styles.Button2} title="Submit" onPress={handleSubmit(onSubmit)} onPress={() => navigation.navigate('title')} />
+      <Button style={styles.Button2} title="Submit" onPress={() => navigation.navigate('title')} />
       </ImageBackground>
     </View>
   );
