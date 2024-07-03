@@ -22,8 +22,25 @@ export const Game = () => {
     .onTouchesDown((e) => {
       setTouchDownX(e.allTouches[0].absoluteX);
       setTouchDownY(e.allTouches[0].absoluteY);
+      console.log(' ');
+      console.log('touches down');
+    })
+    .onTouchesUp((e) => {
+      console.log('touches up');
+      const diffX = touchDownX - e.allTouches[0].absoluteX;
+      const diffY = touchDownY - e.allTouches[0].absoluteY;
+
+      if (diffX > 0 && Math.abs(diffX) > Math.abs(diffY) && crispX > -2)
+        setCrispX(crispX - 2);
+      if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY) && crispX < 2)
+        setCrispX(crispX + 2);
+      if (diffY > 0 && Math.abs(diffX) < Math.abs(diffY) && crispZ > -2)
+        setCrispZ(crispZ - 2);
+      if (diffY < 0 && Math.abs(diffX) < Math.abs(diffY) && crispZ < 2)
+        setCrispZ(crispZ + 2);
     })
     .onTouchesCancelled((e) => {
+      console.log('touches cancel');
       const diffX = touchDownX - e.allTouches[0].absoluteX;
       const diffY = touchDownY - e.allTouches[0].absoluteY;
 
