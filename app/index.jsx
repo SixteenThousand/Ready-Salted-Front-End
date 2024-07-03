@@ -8,6 +8,7 @@ import {
 } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 import { StyleSheet } from 'react-native';
+import { Float } from '@react-three/drei';
 
 const Home = () => {
   const originX = useSharedValue(0);
@@ -39,7 +40,9 @@ const Home = () => {
           <directionalLight position={[0, 1, 0]} args={['white', 15]} />
           <directionalLight position={[0, -1, 0]} args={['white', 2]} />
           <Suspense fallback={null}>
-            <Crisp />
+            <Float floatIntensity={3} speed={2}>
+              <Crisp />
+            </Float>
           </Suspense>
           <gridHelper args={[4, 2]} />
         </Canvas>
