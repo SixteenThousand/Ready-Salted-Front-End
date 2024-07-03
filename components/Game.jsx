@@ -13,7 +13,6 @@ export const Game = () => {
   const [crispZ, setCrispZ] = useState(0);
   const [touchDownX, setTouchDownX] = useState(0);
   const [touchDownY, setTouchDownY] = useState(0);
-  const [touchDownPos, setTouchDownPos] = useState({ x: 0, y: 0 });
 
   const gesture = Gesture.Pan()
     .runOnJS(true)
