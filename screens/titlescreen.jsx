@@ -15,7 +15,7 @@ import {
       <View style={styles.container}>
               <Text>Ready Salted</Text>  
               
-              <TouchableOpacity style={styles.Button2}>
+              <TouchableOpacity style={styles.Button2} onPress={() => navigation.navigate('game')}>
                   <Text style={styles.ButtonText}>Start Game</Text>
               </TouchableOpacity> 
 
