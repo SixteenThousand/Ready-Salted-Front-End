@@ -12,6 +12,7 @@ const Home = () => {
     setFooState((currentFooState) => !currentFooState);
   }
   
+  
   return (<>
     <Canvas>
       <OrbitControls enablePan={false} enableZoom={false} />
