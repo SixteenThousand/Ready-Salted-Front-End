@@ -12,7 +12,7 @@ import styles from "../styles";
 import { useForm, Controller } from "react-hook-form";
 
 
-const SimpleForm = () => {
+const SimpleForm = ({navigation}) => {
   const { control, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
@@ -48,7 +48,7 @@ const SimpleForm = () => {
           />
         )}
       />
-      <Button style={styles.Button2} title="Submit" onPress={handleSubmit(onSubmit)} />
+      <Button style={styles.Button2} title="Submit" onPress={handleSubmit(onSubmit)} onPress={() => navigation.navigate('title')} />
       </ImageBackground>
     </View>
   );
