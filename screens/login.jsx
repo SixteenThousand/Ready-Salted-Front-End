@@ -23,6 +23,7 @@ const RegisterForm = ({ navigation }) => {
       <ImageBackground
         style={styles.Image}
         source={require("../assets/images/Ingenious idea-3.png")}
+
         resizeMode="cover"
       >
         <Text style={styles.title}>Enter your Username and Password</Text>
@@ -54,6 +55,7 @@ const RegisterForm = ({ navigation }) => {
           onPress={handleSubmit(onSubmit)}
           onPress={() => navigation.navigate("title")}
         />
+
       </ImageBackground>
     </View>
   );
