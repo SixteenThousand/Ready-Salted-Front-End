@@ -57,7 +57,7 @@ export const Game = () => {
   return (
     <GestureHandlerRootView>
       <GestureDetector gesture={gesture}>
-        <Canvas camera={{ position: [0, 3, 5] }}>
+        <Canvas camera={{ position: [0, 5, 5], rotation: [-0.5, 0, 0] }}>
           <directionalLight position={[1, 0, 0]} args={['white', 2]} />
           <directionalLight position={[-1, 0, 0]} args={['white', 2]} />
           <directionalLight position={[0, 0, 1]} args={['white', 2]} />
