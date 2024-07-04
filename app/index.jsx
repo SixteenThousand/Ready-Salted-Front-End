@@ -7,6 +7,8 @@ import LoginScreen from '../screens/login';
 import TitleScreen from '../screens/titlescreen';
 import InstructionsScreen from '../screens/instructions';
 import { Game } from '../components/Game';
+import UserScreen from '../screens/userprofile';
+import ScoreScreen from '../screens/highscores';
 
 
 const Stack = createStackNavigator();
@@ -24,7 +26,8 @@ const Home = () => {
         <Stack.Screen name='title' component={TitleScreen}/>
         <Stack.Screen name='how-to-play' component={InstructionsScreen}/>
         <Stack.Screen name='game' component={Game}/>
-
+        <Stack.Screen name="profile" component={UserScreen} />
+        <Stack.Screen name="scores" component={ScoreScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
