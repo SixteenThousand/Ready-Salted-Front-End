@@ -12,8 +12,15 @@ import {
   
   export default function ScoreScreen() {
     return (
+      <ImageBackground
+        style={styles.titleImage}
+        source={require("../assets/images/Designer-3.jpg")}
+
+        resizeMode="cover"
+      >
       <View style={styles.container}>
            <Text>HIGH SCORES</Text>
       </View>
+      </ImageBackground>
     );
   }

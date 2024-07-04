@@ -32,7 +32,7 @@ export default StyleSheet.create({
     marginTop: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '150%',
+    width: '100%',
     height: '100%',
   },
   Button1: {
@@ -53,7 +53,27 @@ export default StyleSheet.create({
     margin: 15,
     borderRadius: 5,
   },
+  Button4: {
+    backgroundColor: 'purple',
+    paddingVertical: 20,
+    paddingHorizontal: 40,
+    margin: 10,
+    borderRadius: 30,
+  },
+  ButtonStart: {
+    backgroundColor: 'red',
+    paddingVertical: 40,
+    paddingHorizontal: 80,
+    margin: 20,
+    borderRadius: 50,
+  },
   ButtonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  ButtonTextStart: {
     color: 'white',
     textAlign: 'center',
     fontSize: 20,
