@@ -13,13 +13,13 @@ import SignupScreen from "./signup";
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Image
-      style={styles.Logo}
-      source={require("../assets/images/Designer-2.jpg")} />
       <ImageBackground
         style={styles.Image}
-        source={require("../assets/images/Ingenious idea-3.png")}
+        source={require("../assets/images/Designer-5.jpg")}
         resizeMode="cover">
+      {/* <Image
+      style={styles.Logo}
+      source={require("../assets/images/Designer-2.jpg")} /> */}
       <TouchableOpacity style={styles.Button1} onPress={() => navigation.navigate('signup')}>
         <Text style={styles.ButtonText}>Create New User</Text>
       </TouchableOpacity>
