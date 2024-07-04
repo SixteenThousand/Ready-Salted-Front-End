@@ -7,6 +7,7 @@ import {
   GestureDetector,
 } from 'react-native-gesture-handler';
 import Crisp from './3dModel/Crisp';
+import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
 
 export const Game = () => {
@@ -53,6 +54,12 @@ export const Game = () => {
                 <Crisp />
               </animated.group>
             </Float>
+            <Ingredient
+              gridX={0}
+              gridZ={0}
+              asset={require('../assets/models/Cheese.glb')}
+              scale={0.2}
+            />
           </Suspense>
           <gridHelper args={[4, 2]} />
         </Canvas>
