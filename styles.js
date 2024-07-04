@@ -76,4 +76,38 @@ export default StyleSheet.create({
     width: '40%',
     borderRadius: 25
   },
+  //Instructions Page Styles
+
+   instructionsContainer: {
+     backgroundColor: "#ADD8E6"
+   },
+
+
+
+  instructionsTitle: {
+    fontSize: 45, 
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+    color: 'purple', 
+    textShadow: '1px 1px 2px rgba(0,0,0,0.2)', 
+    letterSpacing: 1, 
+  },
+  instructionsParagraph: {
+    fontSize: 22, 
+    marginBottom: 20, 
+    lineHeight: 24, 
+    textAlign: 'center',
+    color: '#111', 
+    paddingHorizontal: 15, 
+  },
+  instructionsList: {
+    fontSize: 22, 
+    marginBottom: 20, 
+    lineHeight: 24, 
+    paddingLeft: 20, 
+    textAlign: 'left',
+    color: 'green', 
+  },
+
 }) 
