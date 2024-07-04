@@ -9,8 +9,11 @@ import LoginScreen from '../screens/login';
 import TitleScreen from '../screens/titlescreen';
 import InstructionsScreen from '../screens/instructions';
 import { Game } from '../components/Game';
+import { LogBox } from 'react-native';
 
-
+LogBox.ignoreLogs([
+  '[Reanimated] Reduced motion setting is enabled on this device.',
+]);
 
 
 const Stack = createStackNavigator();
@@ -18,7 +21,7 @@ const Stack = createStackNavigator();
 const Home = () => {
   const [OrbitControls, events] = useControls();
   return (
-
+<>
    <NavigationContainer independent={true} >
 
       <Stack.Navigator initialRouteName='Home'>
@@ -31,6 +34,7 @@ const Home = () => {
 
       </Stack.Navigator>
     </NavigationContainer>
+    </>
   );
 }
 export default Home;

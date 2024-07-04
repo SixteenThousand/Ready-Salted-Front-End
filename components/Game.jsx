@@ -8,6 +8,7 @@ import {
 } from 'react-native-gesture-handler';
 import Crisp from './3dModel/Crisp';
 import { animated, useSpring } from '@react-spring/three';
+import { useReducedMotion } from 'react-native-reanimated';
 
 export const Game = () => {
   const [crispX, setCrispX] = useState(0);
@@ -16,6 +17,8 @@ export const Game = () => {
   const [touchDownY, setTouchDownY] = useState(0);
   const { positionX } = useSpring({ positionX: crispX });
   const { positionZ } = useSpring({ positionZ: crispZ });
+
+  const reducedMotion = useReducedMotion();
 
   const gesture = Gesture.Pan()
     .runOnJS(true)
@@ -40,9 +43,11 @@ export const Game = () => {
         setCrispZ(crispZ + 2);
     })
     .onTouchesCancelled((e) => {
-      console.log('touches cancel');
+      console.log(e)
       const diffX = touchDownX - e.allTouches[0].absoluteX;
       const diffY = touchDownY - e.allTouches[0].absoluteY;
+
+      console.log(diffX, diffY)
 
       if (diffX > 0 && Math.abs(diffX) > Math.abs(diffY) && crispX > -2)
         setCrispX(crispX - 2);
@@ -65,7 +70,7 @@ export const Game = () => {
           <directionalLight position={[0, 1, 0]} args={['white', 15]} />
           <directionalLight position={[0, -1, 0]} args={['white', 2]} />
           <Suspense fallback={null}>
-            <Float floatIntensity={3} speed={2}>
+          <Float floatIntensity={reducedMotion ? 0 : 2} speed={reducedMotion ? 0 : 2}>
               <animated.group position-x={positionX} position-z={positionZ}>
                 <Crisp />
               </animated.group>
