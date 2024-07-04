@@ -14,12 +14,21 @@ export default StyleSheet.create({
     textAlign: 'center'
   },
   Logo: {
-    width: '80%',
-    height: 300,
+    width: '100%',
+    height: 200,
     resizeMode: 'contain', 
+    borderRadius: 30,
   },
   Image: {
     resizeMode: 'stretch',
+    marginTop: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '150%',
+    height: '100%',
+  },
+  titleImage: {
+    resizeMode: '',
     marginTop: 0,
     justifyContent: 'center',
     alignItems: 'center',
@@ -30,13 +39,13 @@ export default StyleSheet.create({
     backgroundColor: 'red',
     padding: 15,
     margin: 15,
-    borderRadius: 5,
+    borderRadius: 30,
   },
   Button2: {
     backgroundColor: 'green',
     padding: 15,
     margin: 15,
-    borderRadius: 5,
+    borderRadius: 30,
   },
   Button3: {
     backgroundColor: 'green',
@@ -51,15 +60,20 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
+    color: 'purple',
     fontWeight: 'bold',
     marginBottom: 20,
   },
   input: {
+    fontSize: 15,
+    fontWeight: 'bold',
     borderWidth: 4,
-    borderColor: '#ccc',
-    padding: 5,
+    borderColor: 'purple',
+    padding: 8,
+    paddingLeft: 25,
     marginBottom: 20,
     width: '40%',
+    borderRadius: 25
   },
 }) 
