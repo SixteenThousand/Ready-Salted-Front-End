@@ -26,6 +26,19 @@ export const Game = () => {
       setTouchDownX(e.allTouches[0].absoluteX);
       setTouchDownY(e.allTouches[0].absoluteY);
     })
+    .onTouchesUp((e) => {
+      const diffX = touchDownX - e.allTouches[0].absoluteX;
+      const diffY = touchDownY - e.allTouches[0].absoluteY;
+
+      if (diffX > 0 && Math.abs(diffX) > Math.abs(diffY) && crispX > -2)
+        setCrispX(crispX - 2);
+      if (diffX < 0 && Math.abs(diffX) > Math.abs(diffY) && crispX < 2)
+        setCrispX(crispX + 2);
+      if (diffY > 0 && Math.abs(diffX) < Math.abs(diffY) && crispZ > -2)
+        setCrispZ(crispZ - 2);
+      if (diffY < 0 && Math.abs(diffX) < Math.abs(diffY) && crispZ < 2)
+        setCrispZ(crispZ + 2);
+    })
     .onTouchesCancelled((e) => {
       const diffX = touchDownX - e.allTouches[0].absoluteX;
       const diffY = touchDownY - e.allTouches[0].absoluteY;
@@ -44,7 +57,7 @@ export const Game = () => {
     <GestureHandlerRootView>
       <ImageBackground source={image} style={styles.image}>
         <GestureDetector gesture={gesture}>
-          <Canvas camera={{ position: [0, 3, 5] }}>
+          <Canvas camera={{ position: [0, 5, 5], rotation: [-0.5, 0, 0] }}>
             <directionalLight position={[1, 0, 0]} args={['white', 2]} />
             <directionalLight position={[-1, 0, 0]} args={['white', 2]} />
             <directionalLight position={[0, 0, 1]} args={['white', 2]} />
@@ -64,7 +77,7 @@ export const Game = () => {
                 scale={0.2}
               />
             </Suspense>
-            <gridHelper args={[4, 2]} />
+            <gridHelper args={[4, 2, 'white', 'white']} />
           </Canvas>
         </GestureDetector>
       </ImageBackground>
