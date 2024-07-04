@@ -13,7 +13,12 @@ import {
   export default function TitleScreen({ navigation }) {
     return (
       <View style={styles.container}>
-              <Text>Ready Salted</Text>  
+         <ImageBackground
+        style={styles.titleImage}
+        source={require("../assets/images/Designer-3.jpg")}
+
+        resizeMode="cover"
+      >
               
               <TouchableOpacity style={styles.Button2} onPress={() => navigation.navigate('game')}>
                   <Text style={styles.ButtonText}>Start Game</Text>
@@ -31,7 +36,7 @@ import {
                   <Text style={styles.ButtonText}>High Scores</Text>
               </TouchableOpacity>  
 
-              
+              </ImageBackground>
 
 
       

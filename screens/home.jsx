@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.ButtonText}>Create New User</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.Button2} onPress={() => navigation.navigate('login')}>
-        <Text style={styles.ButtonText}>      Login      </Text>
+        <Text style={styles.ButtonText}>Play game</Text>
       </TouchableOpacity>
 
       </ImageBackground>
