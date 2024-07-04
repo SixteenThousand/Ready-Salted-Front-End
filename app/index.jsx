@@ -1,5 +1,3 @@
-
-
 import useControls from 'r3f-native-orbitcontrols';
 import HomeScreen from '../screens/home';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,8 +7,6 @@ import LoginScreen from '../screens/login';
 import TitleScreen from '../screens/titlescreen';
 import InstructionsScreen from '../screens/instructions';
 import { Game } from '../components/Game';
-
-
 
 
 const Stack = createStackNavigator();
@@ -33,4 +29,5 @@ const Home = () => {
     </NavigationContainer>
   );
 }
+
 export default Home;
