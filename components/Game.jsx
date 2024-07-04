@@ -21,6 +21,18 @@ export const Game = () => {
   const { positionX } = useSpring({ positionX: crispX });
   const { positionZ } = useSpring({ positionZ: crispZ });
 
+  const dots = [
+    [2, 2],
+    [2, 0],
+    [2, -2],
+    [0, 2],
+    [0, 0],
+    [0, -2],
+    [-2, 2],
+    [-2, 0],
+    [-2, -2],
+  ];
+
   const pan = Gesture.Pan()
     .runOnJS(true)
     .onTouchesDown((e) => {
@@ -39,23 +51,16 @@ export const Game = () => {
     .onTouchesDown((e) => {
       startTouch(e, 'down');
     })
-    .onTouchesUp((e) => {
-      moveCrisp(e, 'up');
-    })
     .onTouchesCancelled((e) => {
       moveCrisp(e, 'cancel');
     });
 
   const startTouch = (e, type) => {
-    console.log('');
-    console.log(Platform.OS);
-    console.log(type);
     setTouchDownX(e.allTouches[0].absoluteX);
     setTouchDownY(e.allTouches[0].absoluteY);
   };
 
   const moveCrisp = (e, type) => {
-    console.log(type);
     const diffX = touchDownX - e.allTouches[0].absoluteX;
     const diffY = touchDownY - e.allTouches[0].absoluteY;
     if (diffX > 0 && Math.abs(diffX) > Math.abs(diffY) && crispX > -2)
@@ -72,7 +77,7 @@ export const Game = () => {
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={image} style={styles.image}>
         <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
-          <Canvas camera={{ position: [0, 5, 5], rotation: [-0.5, 0, 0] }}>
+          <Canvas camera={{ position: [0, 2, 7], rotation: [0, 0, 0] }}>
             <directionalLight position={[1, 0, 0]} args={['white', 2]} />
             <directionalLight position={[-1, 0, 0]} args={['white', 2]} />
             <directionalLight position={[0, 0, 1]} args={['white', 2]} />
@@ -93,25 +98,14 @@ export const Game = () => {
               />
             </Suspense>
             <gridHelper args={[4, 2, 'white', 'white']} />
-            <mesh
-              position={[-2, 0, -2]}
-              // onClick={() => {
-              //   setCrispX(crispX - 2);
-              // }}
-            >
-              <sphereGeometry args={[0.6]} />
-              <meshStandardMaterial opacity={0.2} transparent />
-            </mesh>
-
-            <mesh
-              position={[2, 0, -2]}
-              // onClick={() => {
-              //   setCrispX(crispX + 2);
-              // }}
-            >
-              <sphereGeometry args={[0.6]} />
-              <meshStandardMaterial opacity={0.2} transparent />
-            </mesh>
+            {dots.map((dot, index) => {
+              return (
+                <mesh key={index} position={[dot[0], 0, dot[1]]}>
+                  <sphereGeometry args={[0.05]} />
+                  <meshStandardMaterial />
+                </mesh>
+              );
+            })}
           </Canvas>
         </GestureDetector>
       </ImageBackground>
