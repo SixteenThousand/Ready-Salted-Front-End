@@ -14,7 +14,7 @@ import {
     return (
       <ImageBackground
         style={styles.titleImage}
-        source={require("../assets/images/Designer-3.jpg")}
+        source={require("../assets/images/Designer-4.jpg")}
 
         resizeMode="cover"
       >

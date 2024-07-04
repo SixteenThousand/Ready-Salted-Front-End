@@ -34,9 +34,9 @@ const Home = () => {
         <Stack.Screen name='signup' component={SignupScreen} options={{ ...headerStyles }}/>
         <Stack.Screen name='login' component={LoginScreen} options={{ ...headerStyles }}/>
         <Stack.Screen name='title' component={TitleScreen} options={{ ...headerStyles }}/>
-        <Stack.Screen name='how-to-play' component={InstructionsScreen}/>
+        <Stack.Screen name='how-to-play' component={InstructionsScreen} options={{ ...headerStyles }}/>
         <Stack.Screen name='game' component={Game} options={{ ...headerStyles }}/>
-        <Stack.Screen name="profile" component={UserScreen} />
+        <Stack.Screen name="profile" component={UserScreen} options={{ ...headerStyles }}/>
         <Stack.Screen name="scores" component={ScoreScreen} options={{ ...headerStyles }}/>
       </Stack.Navigator>
     </NavigationContainer>
