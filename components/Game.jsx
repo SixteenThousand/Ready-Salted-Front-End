@@ -1,3 +1,4 @@
+import { StyleSheet, ImageBackground } from 'react-native';
 import { Canvas } from '@react-three/fiber/native';
 import { useState, Suspense } from 'react';
 import { Float } from '@react-three/drei';
@@ -9,6 +10,7 @@ import {
 import Crisp from './3dModel/Crisp';
 import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
+const image = require('../assets/images/background.jpg');
 
 export const Game = () => {
   const [crispX, setCrispX] = useState(0);
@@ -40,30 +42,43 @@ export const Game = () => {
 
   return (
     <GestureHandlerRootView>
-      <GestureDetector gesture={gesture}>
-        <Canvas camera={{ position: [0, 3, 5] }}>
-          <directionalLight position={[1, 0, 0]} args={['white', 2]} />
-          <directionalLight position={[-1, 0, 0]} args={['white', 2]} />
-          <directionalLight position={[0, 0, 1]} args={['white', 2]} />
-          <directionalLight position={[0, 0, -1]} args={['white', 2]} />
-          <directionalLight position={[0, 1, 0]} args={['white', 15]} />
-          <directionalLight position={[0, -1, 0]} args={['white', 2]} />
-          <Suspense fallback={null}>
-            <Float floatIntensity={3} speed={2}>
-              <animated.group position-x={positionX} position-z={positionZ}>
-                <Crisp />
-              </animated.group>
-            </Float>
-            <Ingredient
-              gridX={0}
-              gridZ={0}
-              asset={require('../assets/models/Cheese.glb')}
-              scale={0.2}
-            />
-          </Suspense>
-          <gridHelper args={[4, 2]} />
-        </Canvas>
-      </GestureDetector>
+      <ImageBackground source={image} style={styles.image}>
+        <GestureDetector gesture={gesture}>
+          <Canvas camera={{ position: [0, 3, 5] }}>
+            <directionalLight position={[1, 0, 0]} args={['white', 2]} />
+            <directionalLight position={[-1, 0, 0]} args={['white', 2]} />
+            <directionalLight position={[0, 0, 1]} args={['white', 2]} />
+            <directionalLight position={[0, 0, -1]} args={['white', 2]} />
+            <directionalLight position={[0, 1, 0]} args={['white', 15]} />
+            <directionalLight position={[0, -1, 0]} args={['white', 2]} />
+            <Suspense fallback={null}>
+              <Float floatIntensity={3} speed={2}>
+                <animated.group position-x={positionX} position-z={positionZ}>
+                  <Crisp />
+                </animated.group>
+              </Float>
+              <Ingredient
+                gridX={0}
+                gridZ={0}
+                asset={require('../assets/models/Cheese.glb')}
+                scale={0.2}
+              />
+            </Suspense>
+            <gridHelper args={[4, 2]} />
+          </Canvas>
+        </GestureDetector>
+      </ImageBackground>
     </GestureHandlerRootView>
   );
 };
+
+const styles = StyleSheet.create({
+  canvas: {
+    flex: 1,
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
+});
