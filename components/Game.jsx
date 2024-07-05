@@ -11,7 +11,7 @@ import {
 import Crisp from './3dModel/Crisp';
 import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
-const image = require('../assets/images/factory.jpg');
+const image = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
 
 export const Game = () => {
   const [crispX, setCrispX] = useState(0);
