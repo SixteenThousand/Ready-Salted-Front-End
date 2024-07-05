@@ -1,20 +1,26 @@
 import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    ImageBackground,
-  } from "react-native";
-  import React from "react";
-  import styles from "../styles";
-  
-  
-  
-  export default function UserScreen() {
-    return (
-      <View style={styles.container}>
-           <Text>USER PROFILE</Text>
-      </View>
-    );
-  }
-  
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
+import React from "react";
+import styles from "../styles";
+
+
+
+export default function ScoreScreen() {
+  return (
+    <ImageBackground
+      style={styles.titleImage}
+      source={require("../assets/images/Designer-6.jpg")}
+
+      resizeMode="cover"
+    >
+    <View style={styles.container}>
+         <Text>HIGH SCORES</Text>
+    </View>
+    </ImageBackground>
+  );
+}
