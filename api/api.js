@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-//Modify this when server is live
+//Modify this when server is live.
 const url = 'http://localhost:9090/api'
 
 const api = axios.create({
