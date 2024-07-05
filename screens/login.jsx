@@ -1,15 +1,14 @@
 import {
   View,
   Text,
-  Button,
   TextInput,
-  Image,
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
 import React from "react";
 import styles from "../styles";
 import { useForm, Controller } from "react-hook-form";
+import { color } from "three/examples/jsm/nodes/Nodes.js";
 
 const RegisterForm = ({ navigation }) => {
   const { control, handleSubmit } = useForm();
@@ -26,7 +25,8 @@ const RegisterForm = ({ navigation }) => {
 
         resizeMode="cover"
       >
-        <Text style={styles.title}>Enter your Username and Password</Text>
+        
+        <Text style={styles.title}>Login!</Text>
         <Controller
           control={control}
           name="fieldName"
@@ -45,16 +45,17 @@ const RegisterForm = ({ navigation }) => {
             <TextInput
               {...field}
               style={styles.input}
-              placeholder="Choose a password"
+              placeholder="Password"
             />
           )}
         />
-        <Button
+        <Text style={{color:'purple', fontWeight: '700'}}>Forgot password</Text>
+        <TouchableOpacity
           style={styles.Button2}
-          title="Submit"
-          
+          title="Log in"
           onPress={() => navigation.navigate("title")}
-        />
+        ><Text style={styles.ButtonText}>Log in</Text>
+        </TouchableOpacity>
 
       </ImageBackground>
     </View>
