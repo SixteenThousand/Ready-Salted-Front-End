@@ -8,7 +8,6 @@ import {
 import { Canvas } from '@react-three/fiber/native';
 import { useState, Suspense } from 'react';
 import { Float } from '@react-three/drei';
-import { useGLTF } from '@react-three/drei/native';
 import {
   Directions,
   GestureHandlerRootView,
@@ -85,11 +84,6 @@ export const Game = () => {
       setCrispZ(crispZ + 2);
   };
 
-  // falling ingredient management
-  function handleIngredientHit(details) {
-    console.log(details);
-  }
-
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
@@ -125,7 +119,12 @@ export const Game = () => {
                   <Crisp />
                 </animated.group>
               </Float>
-              <Ingredient onHit={handleIngredientHit} dots={dots} />
+              <Ingredient
+                gridX={0}
+                gridZ={0}
+                asset={require('../assets/models/Cheese.glb')}
+                scale={0.2}
+              />
             </Suspense>
             <gridHelper args={[4, 2, 'white', 'white']} />
             {dots.map((dot, index) => {
