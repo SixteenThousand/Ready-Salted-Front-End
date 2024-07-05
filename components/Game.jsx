@@ -9,6 +9,9 @@ import {
 import Crisp from './3dModel/Crisp';
 import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
+import { useGLTF } from '@react-three/drei/native';
+import { View, Button } from 'react-native';
+
 
 export const Game = () => {
   const [crispX, setCrispX] = useState(0);
@@ -37,8 +40,28 @@ export const Game = () => {
       if (diffY < 0 && Math.abs(diffX) < Math.abs(diffY) && crispZ < 2)
         setCrispZ(crispZ + 2);
     });
+  
+  // falling ingredient management
+  const TYPES = [
+    {
+      name: "cheese",
+      asset: useGLTF(require('../assets/models/Cheese.glb')),
+      scale: 0.3,
+    },
+    // {
+    //   name: 'salt',
+    //   asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
+    //   scale: 1.0,
+    // }
+  ];
+  const [ingredientControls, setIngredientControls] = useState({
+    type: TYPES[0],
+    numResets: 0,
+    numDrops: 0,
+  });
 
-  return (
+
+  return (<>
     <GestureHandlerRootView>
       <GestureDetector gesture={gesture}>
         <Canvas camera={{ position: [0, 3, 5] }}>
@@ -57,13 +80,29 @@ export const Game = () => {
             <Ingredient
               gridX={0}
               gridZ={0}
-              asset={require('../assets/models/Cheese.glb')}
-              scale={0.2}
+              type={ingredientControls.type}
+              numResets={ingredientControls.numResets}
+              numDrops={ingredientControls.numDrops}
             />
           </Suspense>
           <gridHelper args={[4, 2]} />
         </Canvas>
       </GestureDetector>
     </GestureHandlerRootView>
-  );
+    <View>
+      <Button
+        title='Reset Ingredient'
+        onClick={() => {
+          setIngredientControls((currentIngredientsControls) => {
+            return {
+              ...currentIngredientsControls,
+              numResets: currentIngredientsControls.numResets + 1,
+              numDrops: currentIngredientsControls.numDrops + 1,
+            };
+          });
+        }}
+      />
+        
+    </View>
+  </>);
 };
