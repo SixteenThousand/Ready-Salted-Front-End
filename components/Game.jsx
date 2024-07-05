@@ -27,6 +27,7 @@ export const Game = () => {
       setTouchDownY(e.allTouches[0].absoluteY);
     })
     .onTouchesUp((e) => {
+      console.log('touchUp')
       const diffX = touchDownX - e.allTouches[0].absoluteX;
       const diffY = touchDownY - e.allTouches[0].absoluteY;
 
@@ -40,6 +41,7 @@ export const Game = () => {
         setCrispZ(crispZ + 2);
     })
     .onTouchesCancelled((e) => {
+      console.log('touchCancel')
       const diffX = touchDownX - e.allTouches[0].absoluteX;
       const diffY = touchDownY - e.allTouches[0].absoluteY;
 

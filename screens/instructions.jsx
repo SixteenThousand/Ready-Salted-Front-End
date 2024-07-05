@@ -12,6 +12,12 @@ import {
   
   export default function InstructionsScreen({ navigation }) {
     return (
+      <ImageBackground
+        style={styles.Image}
+        source={require("../assets/images/Ingenious idea-3.png")}
+
+        resizeMode="cover"
+      >
       <View style={styles.instructionsContainer}>
       <Text style={styles.instructionsTitle}>How To Play</Text>
       <Text style={styles.instructionsParagraph}>
@@ -36,6 +42,7 @@ import {
         Good luck, the Hungry Humans are depending on you!!!
       </Text>
     </View>
+    </ImageBackground>
     );
   }
 
