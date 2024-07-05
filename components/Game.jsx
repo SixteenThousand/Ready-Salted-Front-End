@@ -57,12 +57,7 @@ export const Game = () => {
                   <Crisp />
                 </animated.group>
               </Float>
-              <Ingredient
-                gridX={0}
-                gridZ={0}
-                asset={require('../assets/models/Cheese.glb')}
-                scale={0.2}
-              />
+              <Ingredient gridInfo={[4,2]} />
             </Suspense>
             <gridHelper args={[4, 2]} />
           </Canvas>
