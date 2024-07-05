@@ -13,6 +13,16 @@ import ScoreScreen from '../screens/highscores';
 
 const Stack = createStackNavigator();
 
+const headerStyles = {
+  headerStyle: {
+    height: 0,
+  },
+  headerTitleStyle: {
+    fontSize: 18,
+  },
+};
+
+
 const Home = () => {
   const [OrbitControls, events] = useControls();
   return (
@@ -21,13 +31,13 @@ const Home = () => {
 
       <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }}/>
-        <Stack.Screen name='signup' component={SignupScreen} options={{ headerShown: true }}/>
-        <Stack.Screen name='login' component={LoginScreen}/>
-        <Stack.Screen name='title' component={TitleScreen}/>
-        <Stack.Screen name='how-to-play' component={InstructionsScreen}/>
-        <Stack.Screen name='game' component={Game}/>
-        <Stack.Screen name="profile" component={UserScreen} />
-        <Stack.Screen name="scores" component={ScoreScreen} />
+        <Stack.Screen name='signup' component={SignupScreen} options={{ ...headerStyles }}/>
+        <Stack.Screen name='login' component={LoginScreen} options={{ ...headerStyles }}/>
+        <Stack.Screen name='title' component={TitleScreen} options={{ ...headerStyles }}/>
+        <Stack.Screen name='how-to-play' component={InstructionsScreen} options={{ ...headerStyles }}/>
+        <Stack.Screen name='game' component={Game} options={{ ...headerStyles }}/>
+        <Stack.Screen name="profile" component={UserScreen} options={{ ...headerStyles }}/>
+        <Stack.Screen name="scores" component={ScoreScreen} options={{ ...headerStyles }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

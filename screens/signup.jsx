@@ -59,7 +59,12 @@ const SimpleForm = () => {
           />
         )}
       />
-      <Button style={styles.Button2} title="Submit" onPress={handleSubmit(onSubmit)} />
+      <TouchableOpacity
+          style={styles.Button2}
+          title="Log in"
+          onPress={() => navigation.navigate("title")}
+        ><Text style={styles.ButtonText}>Sign up!</Text>
+        </TouchableOpacity>
       </ImageBackground>
     </View>
   );
