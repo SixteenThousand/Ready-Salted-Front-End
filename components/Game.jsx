@@ -75,23 +75,8 @@ export const Game = () => {
   };
   
   // falling ingredient management
-  const TYPES = [
-    {
-      name: 'cheese',
-      asset: useGLTF(require('../assets/models/Cheese.glb')),
-      scale: 0.5,
-    },
-    {
-      name: 'salt',
-      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
-      scale: 1.0,
-    },
-  ];
-  const [ingredientPosition, setIngredientPosition] = useState([0,0]);
-  const [ingredientType, setIngredientType] = useState(TYPES[0]);
-  function handleIngredientHit() {
-    setIngredientPosition(dots[Math.floor(Math.random() * dots.length)]);
-    setIngredientType(TYPES[Math.floor(Math.random() * TYPES.length)]);
+  function handleIngredientHit(details) {
+    console.log(details);
   }
 
   return (
@@ -111,11 +96,7 @@ export const Game = () => {
                   <Crisp />
                 </animated.group>
               </Float>
-              <Ingredient
-                gridPosition={ingredientPosition}
-                type={ingredientType}
-                onHit={handleIngredientHit}
-              />
+              <Ingredient onHit={handleIngredientHit} dots={dots} />
             </Suspense>
             <gridHelper args={[4, 2, 'white', 'white']} />
             {dots.map((dot, index) => {
