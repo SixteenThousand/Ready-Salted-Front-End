@@ -2,6 +2,7 @@ import { Platform, StyleSheet, ImageBackground } from 'react-native';
 import { Canvas } from '@react-three/fiber/native';
 import { useState, Suspense } from 'react';
 import { Float } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei/native';
 import {
   Directions,
   GestureHandlerRootView,
@@ -72,6 +73,26 @@ export const Game = () => {
     else if (diffY < 0 && Math.abs(diffX) < Math.abs(diffY) && crispZ < 2)
       setCrispZ(crispZ + 2);
   };
+  
+  // falling ingredient management
+  const TYPES = [
+    {
+      name: 'cheese',
+      asset: useGLTF(require('../assets/models/Cheese.glb')),
+      scale: 0.5,
+    },
+    {
+      name: 'salt',
+      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
+      scale: 1.0,
+    },
+  ];
+  const [ingredientPosition, setIngredientPosition] = useState([0,0]);
+  const [ingredientType, setIngredientType] = useState(TYPES[0]);
+  function handleIngredientHit() {
+    setIngredientPosition(dots[Math.floor(Math.random() * dots.length)]);
+    setIngredientType(TYPES[Math.floor(Math.random() * TYPES.length)]);
+  }
 
   return (
     <GestureHandlerRootView style={styles.canvas}>
@@ -90,7 +111,11 @@ export const Game = () => {
                   <Crisp />
                 </animated.group>
               </Float>
-              <Ingredient gridInfo={[4,2]} />
+              <Ingredient
+                gridPosition={ingredientPosition}
+                type={ingredientType}
+                onHit={handleIngredientHit}
+              />
             </Suspense>
             <gridHelper args={[4, 2, 'white', 'white']} />
             {dots.map((dot, index) => {
