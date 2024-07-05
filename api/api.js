@@ -30,8 +30,8 @@ export const getScores = () => {
 
 /* NOTE: This function is for testing purposes and will need
     a rewrite when safe password features are implemented */
-export const checkPassword = (password) => {
-    return api.get(`/users/${password}`)
+export const checkPassword = (username, password) => {
+    return api.post(`/users/${username}/password`, {password:password})
     .then(({ data }) => {
         return data.match;
     })
