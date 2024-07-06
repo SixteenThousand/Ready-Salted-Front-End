@@ -4,19 +4,20 @@ import { useFrame } from '@react-three/fiber';
 import { animated, useSpring } from '@react-spring/three';
 
 export default function Hand(props) {
-  const { crispX, crispZ, setIsHandActive } = props;
-  const { scene, nodes, materials } = useGLTF(
-    require('../../assets/models/hand.glb')
-  );
+  const { crispX, crispZ, setIsHandActive, setScore } = props;
+  const { nodes, materials } = useGLTF(require('../../assets/models/hand.glb'));
+  materials.lambert2SG.opacity = 1;
   const [handY, setHandY] = useState(null);
   const [handX, setHandX] = useState(null);
   const [handZ, setHandZ] = useState(null);
+  let isHit = false;
   const { animatedHandY } = useSpring({
     animatedHandY: handY,
     config: { delay: 1000, duration: 3000 },
     onRest: () => {
       setTimeout(() => {
         setIsHandActive(false);
+        if (isHit) setScore((score) => score + 5);
       }, 1000);
     },
   });
@@ -31,25 +32,32 @@ export default function Hand(props) {
   }, []);
 
   useFrame(() => {
+    console.log(crispX, crispZ, handX, handZ);
     if (
+      !isHit &&
       Number(JSON.stringify(crispX)) === handX &&
       Number(JSON.stringify(crispZ)) === handZ &&
       Number(JSON.stringify(animatedHandY)) <= 0
     ) {
-      console.log('');
       console.log('Hit!');
-      setIsHandActive(false);
+      isHit = true;
+      materials.lambert2SG.opacity = 0;
     }
   });
 
   return (
-    <animated.group position-y={animatedHandY}>
-      <primitive
-        object={scene}
-        scale={0.05}
-        rotation={[0, 0, Math.PI]}
-        position={[handX, 0, handZ]}
-        children-0-material-opacity={0.5}
+    <animated.group
+      position-x={handX}
+      position-y={animatedHandY}
+      position-z={handZ}
+    >
+      <mesh
+        position={[1.1, 0, 0.4]}
+        rotation={[Math.PI / 2, Math.PI, 0]}
+        scale={0.08}
+        geometry={nodes.hands.geometry}
+        material={materials.lambert2SG}
+        material-transparent
       />
     </animated.group>
   );

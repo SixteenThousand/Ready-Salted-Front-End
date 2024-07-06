@@ -129,6 +129,7 @@ export const Game = () => {
         </View>
         <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
           <Canvas camera={{ position: [0, 2, 7], rotation: [0, 0, 0] }}>
+            {/* <Canvas camera={{ position: [0, 10, 0], rotation: [-Math.PI / 2, 0, 0] }}> */}
             <directionalLight position={[1, 0, 0]} args={['white', 2]} />
             <directionalLight position={[-1, 0, 0]} args={['white', 2]} />
             <directionalLight position={[0, 0, 1]} args={['white', 2]} />
@@ -214,6 +215,7 @@ const styles = StyleSheet.create({
     height: 35,
   },
   activateHand: {
+    position: 'absolute',
     width: 100,
     height: 100,
     backgroundColor: 'white',
