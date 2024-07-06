@@ -2,11 +2,12 @@ import {
   Platform,
   StyleSheet,
   ImageBackground,
+  TouchableOpacity,
   Text,
   View,
 } from 'react-native';
 import { Canvas } from '@react-three/fiber/native';
-import { useState, Suspense } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Float } from '@react-three/drei';
 import { useGLTF } from '@react-three/drei/native';
 import {
@@ -16,7 +17,8 @@ import {
   GestureDetector,
 } from 'react-native-gesture-handler';
 import Crisp from './3dModel/Crisp';
-import Ingredient from './3dModel/Ingredient';
+import Hand from './3dModel/Hand';
+// import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
 const saltIcon = require('../assets/icons/salt.png');
@@ -28,10 +30,12 @@ const baconIcon = require('../assets/icons/bacon.png');
 export const Game = () => {
   const [crispX, setCrispX] = useState(0);
   const [crispZ, setCrispZ] = useState(0);
+  const { animatedCrispX } = useSpring({ animatedCrispX: crispX });
+  const { animatedCrispZ } = useSpring({ animatedCrispZ: crispZ });
   const [touchDownX, setTouchDownX] = useState(0);
   const [touchDownY, setTouchDownY] = useState(0);
-  const { positionX } = useSpring({ positionX: crispX });
-  const { positionZ } = useSpring({ positionZ: crispZ });
+  const [isHandActive, setIsHandActive] = useState(false);
+  const [score, setScore] = useState(0);
 
   const dots = [
     [2, 2],
@@ -44,6 +48,12 @@ export const Game = () => {
     [-2, 0],
     [-2, -2],
   ];
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsHandActive(true);
+    }, 3000);
+  });
 
   const pan = Gesture.Pan()
     .runOnJS(true)
@@ -86,14 +96,20 @@ export const Game = () => {
   };
 
   // falling ingredient management
-  function handleIngredientHit(details) {
-    console.log(details);
-  }
+  // function handleIngredientHit(details) {
+  //   console.log(details);
+  // }
 
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
-        <Text style={styles.highScore}>Score: 0</Text>
+        <TouchableOpacity
+          style={styles.activateHand}
+          onPress={() => {
+            setIsHandActive(!isHandActive);
+          }}
+        ></TouchableOpacity>
+        <Text style={styles.highScore}>Score: {score}</Text>
         <View style={styles.circleContainer}>
           <View style={styles.circle}>
             <ImageBackground source={saltIcon} style={styles.icon} />
@@ -121,18 +137,31 @@ export const Game = () => {
             <directionalLight position={[0, -1, 0]} args={['white', 2]} />
             <Suspense fallback={null}>
               <Float floatIntensity={3} speed={2}>
-                <animated.group position-x={positionX} position-z={positionZ}>
+                <animated.group
+                  position-x={animatedCrispX}
+                  position-z={animatedCrispZ}
+                >
                   <Crisp />
                 </animated.group>
               </Float>
-              <Ingredient onHit={handleIngredientHit} dots={dots} />
+              {/* <Ingredient onHit={handleIngredientHit} dots={dots} /> */}
             </Suspense>
+            {isHandActive ? (
+              <Hand
+                crispX={animatedCrispX}
+                crispZ={animatedCrispZ}
+                setIsHandActive={setIsHandActive}
+                setScore={setScore}
+              />
+            ) : null}
             <gridHelper args={[4, 2, 'white', 'white']} />
             {dots.map((dot, index) => {
               return (
                 <mesh key={index} position={[dot[0], 0, dot[1]]}>
                   <sphereGeometry args={[0.05]} />
-                  <meshStandardMaterial />
+                  <meshStandardMaterial
+                    color={isHandActive ? 'black' : 'white'}
+                  />
                 </mesh>
               );
             })}
@@ -183,5 +212,13 @@ const styles = StyleSheet.create({
   icon: {
     width: 35,
     height: 35,
+  },
+  activateHand: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'white',
+    borderRadius: 50,
+    top: 20,
+    left: 20,
   },
 });
