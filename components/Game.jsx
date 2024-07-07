@@ -42,7 +42,7 @@ export const Game = () => {
     });
   
   // falling ingredient management
-  const TYPES = [
+  const INGREDIENT_TYPES = [
     {
       name: "cheese",
       asset: useGLTF(require('../assets/models/Cheese.glb')),
@@ -55,11 +55,17 @@ export const Game = () => {
     // }
   ];
   const [ingredientControls, setIngredientControls] = useState({
-    type: TYPES[0],
-    numResets: 0,
+    type: INGREDIENT_TYPES[0],
     numDrops: 0,
   });
-
+  function dropIngredient() {
+    setIngredientControls((currentIngredientControls) => {
+      return {
+        ...currentIngredientControls,
+        numDrops: currentIngredientControls.numDrops + 1,
+      };
+    });
+  }
 
   return (<>
     <GestureHandlerRootView>
@@ -81,7 +87,6 @@ export const Game = () => {
               gridX={0}
               gridZ={0}
               type={ingredientControls.type}
-              numResets={ingredientControls.numResets}
               numDrops={ingredientControls.numDrops}
             />
           </Suspense>
@@ -92,17 +97,8 @@ export const Game = () => {
     <View>
       <Button
         title='Reset Ingredient'
-        onClick={() => {
-          setIngredientControls((currentIngredientsControls) => {
-            return {
-              ...currentIngredientsControls,
-              numResets: currentIngredientsControls.numResets + 1,
-              numDrops: currentIngredientsControls.numDrops + 1,
-            };
-          });
-        }}
+        onPress={dropIngredient}
       />
-        
     </View>
   </>);
 };
