@@ -42,6 +42,10 @@ export const Game = () => {
   const [handZ, setHandZ] = useState(null);
   const [contents, setContents] = useState([null, null, null, null, null]);
   const contentTypes = ['salt', 'cheese', 'onion', 'chicken', 'bacon'];
+  const [currentType, setCurrentType] = useState(
+    contentTypes[Math.floor(Math.random() * 5)]
+  );
+  console.log(currentType);
   const [score, setScore] = useState(0);
 
   const dots = [
@@ -119,9 +123,17 @@ export const Game = () => {
   const handHitHandler = () => {
     emptyContents();
     let newScore = 0;
-    for (let i = 0; i < contents.length; i++) if (contents[i]) newScore++;
+    for (let i = 0; i < contents.length; i++)
+      if (contents[i] === currentType) newScore++;
     console.log(newScore);
     setScore((score) => score + newScore);
+  };
+
+  const iconColor = (content) => {
+    console.log(content, currentType, content === content);
+    if (!content) return styles.white;
+    if (content === currentType) return styles.green;
+    if (content !== currentType) return styles.red;
   };
 
   return (
@@ -131,10 +143,7 @@ export const Game = () => {
         <View style={styles.circleContainer}>
           {contents.map((content, index) => {
             return (
-              <View
-                key={index}
-                style={content === null ? styles.empty : styles.bagged}
-              >
+              <View key={index} style={iconColor(content)}>
                 <ImageBackground source={icons[content]} style={styles.icon} />
               </View>
             );
@@ -234,7 +243,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 10,
   },
-  empty: {
+  white: {
     width: 50,
     height: 50,
     backgroundColor: 'white',
@@ -243,10 +252,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
   },
-  bagged: {
+  green: {
     width: 50,
     height: 50,
     backgroundColor: '#CCFF00',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+  },
+  red: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#ff3300',
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
