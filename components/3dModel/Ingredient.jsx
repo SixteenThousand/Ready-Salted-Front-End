@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 
 
@@ -9,7 +9,7 @@ export default function Ingredient(props) {
   let internalNumDrops = 0;
   let isActive = false;
   const ACCELERATION = 0.06;
-  const INITIAL_HEIGHT = 7;
+  const INITIAL_HEIGHT = 5;
   const GRID_HEIGHT = 0;
   
   useEffect(() => {
@@ -22,6 +22,7 @@ export default function Ingredient(props) {
     if(isActive) {
       ref.current.position.y = INITIAL_HEIGHT - ACCELERATION *
         Math.pow(clock.getElapsedTime() - timeOfLastDrop, 2);
+      ref.current.rotation.y += 0.05;
       if(ref.current.position.y < GRID_HEIGHT) {
         // reset & wait for next drop to be triggered from outside
         ref.current.position.y = INITIAL_HEIGHT;
@@ -40,6 +41,7 @@ export default function Ingredient(props) {
   return (<primitive
     object={type.asset.scene}
     scale={type.scale || 1.0}
+    rotation={[0,0,Math.PI / 8]}
     ref={ref}
   />);
 }
