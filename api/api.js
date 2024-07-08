@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //Modify this when server is live.
-const url = 'http://localhost:9090/api'
+const url = `http://10.0.2.2:9090/api`
 
 const api = axios.create({
     baseURL: url
@@ -65,3 +65,5 @@ export const updateUserbyUsername = (refUsername, userObj) => {
         return data;
     })
 }
+
+getUsers().then((data) => console.log(data))
