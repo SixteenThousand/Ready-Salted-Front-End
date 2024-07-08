@@ -14,7 +14,7 @@ const BoopButton = () => {
   async function playSound() {
     console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync(
-       require('../assets/MP3/T. Bless - Froggy Fraud Adventure.mp3')
+       require('../assets/SoundEffects/Wrong.wav')
     );
     setSound(sound);
 

@@ -7,10 +7,38 @@ import {
   } from "react-native";
   import React from "react";
   import styles from "../styles";
-  
-  
-  
+  import { Audio } from "expo-av";
+import { useEffect } from "react";
+
   export default function TitleScreen({ navigation }) {
+
+    useEffect(() => {
+      let sound = new Audio.Sound();
+  
+      async function playSound() {
+        try {
+          console.log('Loading Sound');
+          await sound.loadAsync(
+             require('../assets/MP3/Vibing Over Venus.mp3')
+          );
+  
+          console.log('Playing Sound');
+          await sound.playAsync();
+        } catch (error) {
+          console.log('Failed to play the sound', error);
+        }
+      }
+  
+      playSound();
+  
+      return () => {
+        if (sound) {
+          console.log('Stopping Sound');
+          sound.stopAsync();
+          sound.unloadAsync();
+        }
+      };
+    }, []);
     return (
       <View style={styles.container}>
          <ImageBackground
