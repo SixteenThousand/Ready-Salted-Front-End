@@ -29,14 +29,12 @@ export default function Hand(props) {
   }, []);
 
   useFrame(() => {
-    console.log(crispX, crispZ, handX, handZ);
     if (
       !isHit &&
       Number(JSON.stringify(crispX)) === handX &&
       Number(JSON.stringify(crispZ)) === handZ &&
       Number(JSON.stringify(animatedHandY)) <= 0
     ) {
-      console.log('Hit!');
       isHit = true;
       materials.lambert2SG.opacity = 0;
     }
