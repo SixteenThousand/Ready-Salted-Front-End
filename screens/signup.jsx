@@ -10,19 +10,40 @@ import {
 import React from "react";
 import styles from "../styles";
 import { useForm, Controller } from "react-hook-form";
-import { postNewUser, getUsers } from "../api/api";
+import { postNewUser, getUserByUsername, getUserByEmail } from "../api/api";
 
 
 const SimpleForm = () => {
   const { control, handleSubmit } = useForm();
 
+  
+
   const checkUserExists = (email, username) => {
-    return getUsers()
-      .then((users) => {
-        const emailExists = users.some((user) => user.email === email);
-        const usernameExists = users.some((user) => user.username === username);
-        return { emailExists, usernameExists };
-      });
+
+    let userExists;
+    let emailExists;
+
+    return getUserByUsername(username)
+    .then((user) => {
+      userExists = user ? true : false;
+    })
+    .then(() => {
+      return getUserByEmail(email);
+    })
+    .then((user) => {
+      emailExists = user ? true : false;
+    })
+    .then(() => {
+      return {userExists, emailExists}
+    })
+
+
+    // return getUsers()
+    //   .then((users) => {
+    //     const emailExists = users.some((user) => user.email === email);
+    //     const usernameExists = users.some((user) => user.username === username);
+    //     return { emailExists, usernameExists };
+    //   });
   };
   
   const onSubmit = ({ username, email, password }) => {

@@ -15,7 +15,14 @@ export const getUsers = () => {
 }
 
 export const getUserByUsername = (username) => {
-    return api.get(`/users/${username}`)
+    return api.get(`/users/username/${username}`)
+    .then(({ data }) => {
+        return data;
+    })
+}
+
+export const getUserByEmail = (email) => {
+    return api.get(`/users/email/${email}`)
     .then(({ data }) => {
         return data;
     })
