@@ -17,9 +17,9 @@ export default function HomeScreen({ navigation }) {
         style={styles.Image}
         source={require("../assets/images/Designer-5.jpg")}
         resizeMode="cover">
-      {/* <Image
+      <Image
       style={styles.Logo}
-      source={require("../assets/images/Designer-2.jpg")} /> */}
+      source={require("../assets/images/readysaltedcut.png")} />
       <TouchableOpacity style={styles.Button1} onPress={() => navigation.navigate('signup')}>
         <Text style={styles.ButtonText}>Create New User</Text>
       </TouchableOpacity>
