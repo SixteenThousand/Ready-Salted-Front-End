@@ -4,7 +4,8 @@ import { useFrame } from '@react-three/fiber';
 import { animated, useSpring } from '@react-spring/three';
 
 export default function Hand(props) {
-  const { handX, handZ, crispX, crispZ, setIsHandActive, setScore } = props;
+  const { handX, handZ, crispX, crispZ, setIsHandActive, handHitHandler } =
+    props;
   const { nodes, materials } = useGLTF(require('../../assets/models/hand.glb'));
   materials.lambert2SG.opacity = 1;
   const [handY, setHandY] = useState(null);
@@ -15,7 +16,7 @@ export default function Hand(props) {
     onRest: () => {
       setTimeout(() => {
         setIsHandActive(false);
-        if (isHit) setScore((score) => score + 5);
+        if (isHit) handHitHandler();
       }, 1000);
     },
   });

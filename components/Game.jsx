@@ -93,6 +93,10 @@ export const Game = () => {
     setIsHandActive(true);
   };
 
+  const handHitHandler = () => {
+    setScore((score) => score + 5);
+  };
+
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
@@ -126,7 +130,7 @@ export const Game = () => {
                 crispX={animatedCrispX}
                 crispZ={animatedCrispZ}
                 setIsHandActive={setIsHandActive}
-                setScore={setScore}
+                handHitHandler={handHitHandler}
               />
             ) : null}
             <gridHelper args={[4, 2, 'white', 'white']} />
