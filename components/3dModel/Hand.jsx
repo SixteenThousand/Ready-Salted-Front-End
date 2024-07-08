@@ -8,8 +8,6 @@ export default function Hand(props) {
   const { nodes, materials } = useGLTF(require('../../assets/models/hand.glb'));
   materials.lambert2SG.opacity = 1;
   const [handY, setHandY] = useState(null);
-  // const [handX, setHandX] = useState(null);
-  // const [handZ, setHandZ] = useState(null);
   let isHit = false;
   const { animatedHandY } = useSpring({
     animatedHandY: handY,
@@ -23,8 +21,6 @@ export default function Hand(props) {
   });
 
   useEffect(() => {
-    // setHandX(Math.floor(Math.random() * 3) * 2 - 2);
-    // setHandZ(Math.floor(Math.random() * 3) * 2 - 2);
     setHandY(5);
     setTimeout(() => {
       setHandY(0);

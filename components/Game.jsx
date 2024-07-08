@@ -21,11 +21,6 @@ import Hand from './3dModel/Hand';
 // import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
-const saltIcon = require('../assets/icons/salt.png');
-const cheeseIcon = require('../assets/icons/cheese.png');
-const onionIcon = require('../assets/icons/onion.png');
-const chickenIcon = require('../assets/icons/chicken.png');
-const baconIcon = require('../assets/icons/bacon.png');
 
 export const Game = () => {
   const [crispX, setCrispX] = useState(0);
@@ -37,6 +32,7 @@ export const Game = () => {
   const [isHandActive, setIsHandActive] = useState(false);
   const [handX, setHandX] = useState(null);
   const [handZ, setHandZ] = useState(null);
+  const [contents, setContents] = useState([null, null, null, null, null]);
   const [score, setScore] = useState(0);
 
   const dots = [
@@ -50,12 +46,6 @@ export const Game = () => {
     [-2, 0],
     [-2, -2],
   ];
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsHandActive(true);
-  //   }, 3000);
-  // });
 
   const pan = Gesture.Pan()
     .runOnJS(true)
@@ -107,23 +97,6 @@ export const Game = () => {
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
         <Text style={styles.highScore}>Score: {score}</Text>
-        <View style={styles.circleContainer}>
-          <View style={styles.circle}>
-            <ImageBackground source={saltIcon} style={styles.icon} />
-          </View>
-          <View style={styles.circle}>
-            <ImageBackground source={cheeseIcon} style={styles.icon} />
-          </View>
-          <View style={styles.circle}>
-            <ImageBackground source={onionIcon} style={styles.icon} />
-          </View>
-          <View style={styles.circle}>
-            <ImageBackground source={chickenIcon} style={styles.icon} />
-          </View>
-          <View style={styles.circle}>
-            <ImageBackground source={baconIcon} style={styles.icon} />
-          </View>
-        </View>
         <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
           <Canvas camera={{ position: [0, 2, 7], rotation: [0, 0, 0] }}>
             {/* <Canvas
@@ -174,10 +147,6 @@ export const Game = () => {
           </Canvas>
         </GestureDetector>
       </ImageBackground>
-      <TouchableOpacity
-        style={styles.activateHand}
-        onPress={activateHand}
-      ></TouchableOpacity>
     </GestureHandlerRootView>
   );
 };
@@ -210,10 +179,19 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 10,
   },
-  circle: {
+  empty: {
     width: 50,
     height: 50,
     backgroundColor: 'white',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+  },
+  bagged: {
+    width: 50,
+    height: 50,
+    backgroundColor: 'green',
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
@@ -223,6 +201,15 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
   },
+  activateIcons: {
+    position: 'absolute',
+    width: 100,
+    height: 100,
+    backgroundColor: 'red',
+    borderRadius: 50,
+    top: 20,
+    left: 20,
+  },
   activateHand: {
     position: 'absolute',
     width: 100,
@@ -230,6 +217,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 50,
     top: 20,
-    left: 20,
+    left: 140,
   },
 });
