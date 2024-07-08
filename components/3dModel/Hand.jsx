@@ -4,12 +4,12 @@ import { useFrame } from '@react-three/fiber';
 import { animated, useSpring } from '@react-spring/three';
 
 export default function Hand(props) {
-  const { crispX, crispZ, setIsHandActive, setScore } = props;
+  const { handX, handZ, crispX, crispZ, setIsHandActive, setScore } = props;
   const { nodes, materials } = useGLTF(require('../../assets/models/hand.glb'));
   materials.lambert2SG.opacity = 1;
   const [handY, setHandY] = useState(null);
-  const [handX, setHandX] = useState(null);
-  const [handZ, setHandZ] = useState(null);
+  // const [handX, setHandX] = useState(null);
+  // const [handZ, setHandZ] = useState(null);
   let isHit = false;
   const { animatedHandY } = useSpring({
     animatedHandY: handY,
@@ -23,8 +23,8 @@ export default function Hand(props) {
   });
 
   useEffect(() => {
-    setHandX(Math.floor(Math.random() * 3) * 2 - 2);
-    setHandZ(Math.floor(Math.random() * 3) * 2 - 2);
+    // setHandX(Math.floor(Math.random() * 3) * 2 - 2);
+    // setHandZ(Math.floor(Math.random() * 3) * 2 - 2);
     setHandY(5);
     setTimeout(() => {
       setHandY(0);
@@ -52,9 +52,9 @@ export default function Hand(props) {
       position-z={handZ}
     >
       <mesh
-        position={[1.1, 0, 0.4]}
+        position={[0.75, -0.05, 0.25]}
         rotation={[Math.PI / 2, Math.PI, 0]}
-        scale={0.08}
+        scale={0.05}
         geometry={nodes.hands.geometry}
         material={materials.lambert2SG}
         material-transparent

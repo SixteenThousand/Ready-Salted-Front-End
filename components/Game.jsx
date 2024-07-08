@@ -35,6 +35,8 @@ export const Game = () => {
   const [touchDownX, setTouchDownX] = useState(0);
   const [touchDownY, setTouchDownY] = useState(0);
   const [isHandActive, setIsHandActive] = useState(false);
+  const [handX, setHandX] = useState(null);
+  const [handZ, setHandZ] = useState(null);
   const [score, setScore] = useState(0);
 
   const dots = [
@@ -49,11 +51,11 @@ export const Game = () => {
     [-2, -2],
   ];
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsHandActive(true);
-    }, 3000);
-  });
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setIsHandActive(true);
+  //   }, 3000);
+  // });
 
   const pan = Gesture.Pan()
     .runOnJS(true)
@@ -95,20 +97,15 @@ export const Game = () => {
       setCrispZ(crispZ + 2);
   };
 
-  // falling ingredient management
-  // function handleIngredientHit(details) {
-  //   console.log(details);
-  // }
+  const activateHand = () => {
+    setHandX(Math.floor(Math.random() * 3) * 2 - 2);
+    setHandZ(Math.floor(Math.random() * 3) * 2 - 2);
+    setIsHandActive(true);
+  };
 
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
-        <TouchableOpacity
-          style={styles.activateHand}
-          onPress={() => {
-            setIsHandActive(!isHandActive);
-          }}
-        ></TouchableOpacity>
         <Text style={styles.highScore}>Score: {score}</Text>
         <View style={styles.circleContainer}>
           <View style={styles.circle}>
@@ -129,7 +126,9 @@ export const Game = () => {
         </View>
         <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
           <Canvas camera={{ position: [0, 2, 7], rotation: [0, 0, 0] }}>
-            {/* <Canvas camera={{ position: [0, 10, 0], rotation: [-Math.PI / 2, 0, 0] }}> */}
+            {/* <Canvas
+            camera={{ position: [0, 10, 0], rotation: [-Math.PI / 2, 0, 0] }}
+          > */}
             <directionalLight position={[1, 0, 0]} args={['white', 2]} />
             <directionalLight position={[-1, 0, 0]} args={['white', 2]} />
             <directionalLight position={[0, 0, 1]} args={['white', 2]} />
@@ -149,6 +148,8 @@ export const Game = () => {
             </Suspense>
             {isHandActive ? (
               <Hand
+                handX={handX}
+                handZ={handZ}
                 crispX={animatedCrispX}
                 crispZ={animatedCrispZ}
                 setIsHandActive={setIsHandActive}
@@ -161,7 +162,11 @@ export const Game = () => {
                 <mesh key={index} position={[dot[0], 0, dot[1]]}>
                   <sphereGeometry args={[0.05]} />
                   <meshStandardMaterial
-                    color={isHandActive ? 'black' : 'white'}
+                    color={
+                      dot[0] === handX && dot[1] === handZ && isHandActive
+                        ? 'black'
+                        : 'white'
+                    }
                   />
                 </mesh>
               );
@@ -169,6 +174,10 @@ export const Game = () => {
           </Canvas>
         </GestureDetector>
       </ImageBackground>
+      <TouchableOpacity
+        style={styles.activateHand}
+        onPress={activateHand}
+      ></TouchableOpacity>
     </GestureHandlerRootView>
   );
 };
