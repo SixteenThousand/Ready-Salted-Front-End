@@ -19,7 +19,7 @@ import { useEffect } from "react";
         try {
           console.log('Loading Sound');
           await sound.loadAsync(
-             require('../assets/MP3/Vibing Over Venus.mp3')
+             require('../assets/MP3/Paradise_Found.mp3')
           );
   
           console.log('Playing Sound');

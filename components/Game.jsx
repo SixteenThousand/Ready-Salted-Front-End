@@ -11,6 +11,7 @@ import {
 import Crisp from './3dModel/Crisp';
 import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
+
 const image = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
 
 export const Game = () => {
@@ -20,6 +21,7 @@ export const Game = () => {
   const [touchDownY, setTouchDownY] = useState(0);
   const { positionX } = useSpring({ positionX: crispX });
   const { positionZ } = useSpring({ positionZ: crispZ });
+
 
   const dots = [
     [2, 2],
