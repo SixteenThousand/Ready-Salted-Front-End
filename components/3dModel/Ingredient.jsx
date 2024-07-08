@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 
 
 export default function Ingredient(props) {
-  const { type, gridX, gridZ, numDrops, } = props;
+  const { type, gridX, gridZ, numDrops, onHit, } = props;
   const ref = useRef();
   let timeOfLastDrop = 0;
   let internalNumDrops = 0;
@@ -27,6 +27,7 @@ export default function Ingredient(props) {
         // reset & wait for next drop to be triggered from outside
         ref.current.position.y = INITIAL_HEIGHT;
         isActive = false;
+        onHit({ position: [gridX,gridZ], type });
       }
     } else {
       // check if the "main game script" has told this ingredient to drop
