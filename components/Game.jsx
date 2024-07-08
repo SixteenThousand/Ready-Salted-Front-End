@@ -45,7 +45,6 @@ export const Game = () => {
   const [currentType, setCurrentType] = useState(
     contentTypes[Math.floor(Math.random() * 5)]
   );
-  console.log(currentType);
   const [score, setScore] = useState(0);
 
   const dots = [
@@ -125,12 +124,10 @@ export const Game = () => {
     let newScore = 0;
     for (let i = 0; i < contents.length; i++)
       if (contents[i] === currentType) newScore++;
-    console.log(newScore);
     setScore((score) => score + newScore);
   };
 
   const iconColor = (content) => {
-    console.log(content, currentType, content === content);
     if (!content) return styles.white;
     if (content === currentType) return styles.green;
     if (content !== currentType) return styles.red;
