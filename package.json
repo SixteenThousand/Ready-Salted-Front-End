@@ -2,6 +2,7 @@
   "name": "reactnativeanimation",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -21,6 +22,7 @@
     "@react-spring/three": "^9.7.3",
     "@react-three/drei": "^9.106.0",
     "@react-three/fiber": "^8.16.7",
+    "axios": "^1.7.2",
     "expo": "~51.0.9",
     "expo-app-loading": "^2.1.1",
     "expo-font": "~12.0.7",
@@ -36,6 +38,7 @@
     "react-native": "0.74.1",
     "react-native-gesture-handler": "^2.17.1",
     "react-native-reanimated": "~3.10.1",
+    "react-native-sound": "^0.11.2",
     "react-native-svg-transformer": "^1.4.0",
     "three": "^0.165.0"
   },
