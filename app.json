@@ -4,11 +4,11 @@
     "slug": "ReactNativeAnimation",
     "version": "1.0.0",
     "orientation": "portrait",
-    // "icon": "./assets/images/icon.png",
+
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      // "image": "./assets/images/splash.png",
+
       "resizeMode": "contain",
       "backgroundColor": "#ffffff",
       "plugins": [
@@ -37,6 +37,16 @@
     "plugins": ["expo-router", "expo-font"],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+      "expo": {
+        "plugins": [
+          [
+            "expo-av",
+            {
+              "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
+            }
+          ]
+        ]
+      }
   }
 }

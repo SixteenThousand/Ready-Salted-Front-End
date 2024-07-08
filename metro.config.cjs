@@ -9,10 +9,12 @@ module.exports = (() => {
     ...transformer,
     babelTransformerPath: require.resolve("react-native-svg-transformer"),
   };
+
   config.resolver = {
     ...resolver,
     assetExts: [
-      resolver.assetExts.filter((ext) => ext !== "svg"),
+      ...resolver.assetExts.filter((ext) => ext !== "svg"),
+      "mp3",
       "glb",
       "gltf",
       "png",

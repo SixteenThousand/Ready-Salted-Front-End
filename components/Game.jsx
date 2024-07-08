@@ -18,6 +18,10 @@ import Crisp from './3dModel/Crisp';
 import Hand from './3dModel/Hand';
 // import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
+
+
+
+
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
 
 const icons = {
@@ -44,6 +48,7 @@ export const Game = () => {
     contentTypes[Math.floor(Math.random() * 5)]
   );
   const [score, setScore] = useState(0);
+
 
   const dots = [
     [2, 2],
