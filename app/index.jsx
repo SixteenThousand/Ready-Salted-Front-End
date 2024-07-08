@@ -11,6 +11,7 @@ import UserScreen from '../screens/userprofile';
 import ScoreScreen from '../screens/highscores';
 
 
+
 const Stack = createStackNavigator();
 
 const headerStyles = {

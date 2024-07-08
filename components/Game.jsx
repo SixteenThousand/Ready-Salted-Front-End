@@ -20,7 +20,12 @@ import Crisp from './3dModel/Crisp';
 import Hand from './3dModel/Hand';
 // import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
+
+
+
+
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
+
 
 export const Game = () => {
   const [crispX, setCrispX] = useState(0);
@@ -34,6 +39,7 @@ export const Game = () => {
   const [handZ, setHandZ] = useState(null);
   const [contents, setContents] = useState([null, null, null, null, null]);
   const [score, setScore] = useState(0);
+
 
   const dots = [
     [2, 2],
