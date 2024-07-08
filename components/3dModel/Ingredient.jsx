@@ -2,13 +2,9 @@ import { useRef, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 
 
-export default function Ingredient({
-    type,
-    gridX,
-    gridZ,
-    numDrops, }) {
+export default function Ingredient(props) {
+  const { type, gridX, gridZ, numDrops, } = props;
   const ref = useRef();
-  const [opacity, setOpacity] = useState(1);
   let timeOfLastDrop = 0;
   let internalNumDrops = 0;
   let isActive = false;
@@ -29,16 +25,12 @@ export default function Ingredient({
       if(ref.current.position.y < GRID_HEIGHT) {
         // reset & wait for next drop to be triggered from outside
         ref.current.position.y = INITIAL_HEIGHT;
-        console.log("We got to the grid!",timeOfLastDrop); // debug
         isActive = false;
-        // setOpacity(0);
       }
     } else {
       // check if the "main game script" has told this ingredient to drop
       if(internalNumDrops < numDrops) {
         timeOfLastDrop = clock.getElapsedTime();
-        console.log("We tried to drop the cheese!", ref.current.position.y, timeOfLastDrop); // debug
-        // setOpacity(1);
         isActive = true;
         internalNumDrops = numDrops;
       }
