@@ -2,7 +2,6 @@ import {
   Platform,
   StyleSheet,
   ImageBackground,
-  TouchableOpacity,
   Text,
   View,
 } from 'react-native';
@@ -11,7 +10,6 @@ import { useState, useEffect, Suspense } from 'react';
 import { Float } from '@react-three/drei';
 import { useGLTF } from '@react-three/drei/native';
 import {
-  Directions,
   GestureHandlerRootView,
   Gesture,
   GestureDetector,
@@ -196,18 +194,6 @@ export const Game = () => {
           </Canvas>
         </GestureDetector>
       </ImageBackground>
-      <TouchableOpacity
-        style={styles.addContent}
-        onPress={addContent}
-      ></TouchableOpacity>
-      <TouchableOpacity
-        style={styles.emptyContents}
-        onPress={emptyContents}
-      ></TouchableOpacity>
-      <TouchableOpacity
-        style={styles.activateHand}
-        onPress={activateHand}
-      ></TouchableOpacity>
     </GestureHandlerRootView>
   );
 };
