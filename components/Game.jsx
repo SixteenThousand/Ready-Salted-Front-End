@@ -2,7 +2,6 @@ import {
   Platform,
   StyleSheet,
   ImageBackground,
-  TouchableOpacity,
   Text,
   View,
 } from 'react-native';
@@ -11,7 +10,6 @@ import { useState, useEffect, Suspense } from 'react';
 import { Float } from '@react-three/drei';
 import { useGLTF } from '@react-three/drei/native';
 import {
-  Directions,
   GestureHandlerRootView,
   Gesture,
   GestureDetector,
@@ -26,6 +24,13 @@ import { animated, useSpring } from '@react-spring/three';
 
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
 
+const icons = {
+  salt: require('../assets/icons/salt.png'),
+  cheese: require('../assets/icons/cheese.png'),
+  onion: require('../assets/icons/onion.png'),
+  chicken: require('../assets/icons/chicken.png'),
+  bacon: require('../assets/icons/bacon.png'),
+};
 
 export const Game = () => {
   const [crispX, setCrispX] = useState(0);
@@ -38,6 +43,10 @@ export const Game = () => {
   const [handX, setHandX] = useState(null);
   const [handZ, setHandZ] = useState(null);
   const [contents, setContents] = useState([null, null, null, null, null]);
+  const contentTypes = ['salt', 'cheese', 'onion', 'chicken', 'bacon'];
+  const [currentType, setCurrentType] = useState(
+    contentTypes[Math.floor(Math.random() * 5)]
+  );
   const [score, setScore] = useState(0);
 
 
@@ -93,6 +102,20 @@ export const Game = () => {
       setCrispZ(crispZ + 2);
   };
 
+  const addContent = () => {
+    for (let i = 0; i < contents.length; i++)
+      if (!contents[i]) {
+        const newContents = [...contents];
+        newContents[i] = contentTypes[Math.floor(Math.random() * 5)];
+        setContents(newContents);
+        break;
+      }
+  };
+
+  const emptyContents = () => {
+    setContents([null, null, null, null, null]);
+  };
+
   const activateHand = () => {
     setHandX(Math.floor(Math.random() * 3) * 2 - 2);
     setHandZ(Math.floor(Math.random() * 3) * 2 - 2);
@@ -100,13 +123,32 @@ export const Game = () => {
   };
 
   const handHitHandler = () => {
-    setScore((score) => score + 5);
+    emptyContents();
+    let newScore = 0;
+    for (let i = 0; i < contents.length; i++)
+      if (contents[i] === currentType) newScore++;
+    setScore((score) => score + newScore);
+  };
+
+  const iconColor = (content) => {
+    if (!content) return styles.white;
+    if (content === currentType) return styles.green;
+    if (content !== currentType) return styles.red;
   };
 
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
         <Text style={styles.highScore}>Score: {score}</Text>
+        <View style={styles.circleContainer}>
+          {contents.map((content, index) => {
+            return (
+              <View key={index} style={iconColor(content)}>
+                <ImageBackground source={icons[content]} style={styles.icon} />
+              </View>
+            );
+          })}
+        </View>
         <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
           <Canvas camera={{ position: [0, 2, 7], rotation: [0, 0, 0] }}>
             {/* <Canvas
@@ -189,7 +231,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     gap: 10,
   },
-  empty: {
+  white: {
     width: 50,
     height: 50,
     backgroundColor: 'white',
@@ -198,10 +240,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
   },
-  bagged: {
+  green: {
     width: 50,
     height: 50,
-    backgroundColor: 'green',
+    backgroundColor: '#CCFF00',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+  },
+  red: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#ff3300',
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
@@ -211,19 +262,28 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
   },
-  activateIcons: {
+  addContent: {
     position: 'absolute',
-    width: 100,
-    height: 100,
-    backgroundColor: 'red',
+    width: 50,
+    height: 50,
+    backgroundColor: '#CCFF00',
     borderRadius: 50,
     top: 20,
     left: 20,
   },
+  emptyContents: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    backgroundColor: 'red',
+    borderRadius: 50,
+    top: 20,
+    left: 80,
+  },
   activateHand: {
     position: 'absolute',
-    width: 100,
-    height: 100,
+    width: 50,
+    height: 50,
     backgroundColor: 'white',
     borderRadius: 50,
     top: 20,
