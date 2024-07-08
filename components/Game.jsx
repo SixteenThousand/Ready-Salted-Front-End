@@ -16,7 +16,7 @@ import {
 } from 'react-native-gesture-handler';
 import Crisp from './3dModel/Crisp';
 import Hand from './3dModel/Hand';
-// import Ingredient from './3dModel/Ingredient';
+import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
 
 
@@ -73,6 +73,21 @@ export const Game = () => {
     .onTouchesCancelled((e) => {
       moveCrisp(e, 'cancel');
     });
+  
+  // falling ingredient management
+  const INGREDIENT_TYPES = [
+    {
+      name: "cheese",
+      asset: useGLTF(require('../assets/models/Cheese.glb')),
+      scale: 0.3,
+    },
+    {
+      name: 'salt',
+      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
+      scale: 1.0,
+    }
+  ];
+
 
   const longPress = Gesture.LongPress()
     .runOnJS(true)
