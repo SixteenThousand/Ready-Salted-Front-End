@@ -36,14 +36,7 @@ const SimpleForm = () => {
     .then(() => {
       return {userExists, emailExists}
     })
-
-
-    // return getUsers()
-    //   .then((users) => {
-    //     const emailExists = users.some((user) => user.email === email);
-    //     const usernameExists = users.some((user) => user.username === username);
-    //     return { emailExists, usernameExists };
-    //   });
+    .catch((err) => {console.log(err)})
   };
   
   const onSubmit = ({ username, email, password }) => {

@@ -1,10 +1,7 @@
 import axios from 'axios';
 
-//Modify this when server is live.
-const url = `http://10.0.2.2:9090/api`
-
 const api = axios.create({
-    baseURL: url
+    baseURL: 'https://ready-salted-server.onrender.com/api'
 })
 
 export const getUsers = () => {
@@ -72,5 +69,3 @@ export const updateUserbyUsername = (refUsername, userObj) => {
         return data;
     })
 }
-
-getUsers().then((data) => console.log(data))
