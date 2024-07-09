@@ -80,10 +80,13 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   title: {
+    textAlign: 'center',
     fontSize: 30,
     color: 'purple',
     fontWeight: 'bold',
     marginBottom: 20,
+    wordWrap: 'break-word',
+    maxWidth: '100%',
   },
   input: {
     fontSize: 15,
