@@ -11,7 +11,7 @@ import styles from "../styles";
 import { deleteUserByUsername } from "../api/api";
 
 const hardcodedUser = {
-  username: "Luc",
+  username: "luc",
 };
 
 export default function ScoreScreen() {
