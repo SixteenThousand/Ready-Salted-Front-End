@@ -49,7 +49,7 @@ const localStyles = StyleSheet.create({
     alignItems: "center",
   },
   overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.8)", // Dark overlay for cinematic feel
+    backgroundColor: "rgba(0, 0, 0, 0.8)", 
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -58,7 +58,7 @@ const localStyles = StyleSheet.create({
   title: {
     fontSize: 36,
     fontWeight: "bold",
-    color: "#FFD700", // Gold color for title
+    color: "#FFD700", 
     textAlign: "center",
     marginBottom: 20,
   },
