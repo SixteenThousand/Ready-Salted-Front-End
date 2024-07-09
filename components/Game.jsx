@@ -106,11 +106,11 @@ export const Game = () => {
   };
 
   const handHitHandler = () => {
-    emptyContents();
     let newScore = 0;
     for (let i = 0; i < contents.length; i++)
-      if (contents[i] === currentType) newScore++;
+      if (contents[i] === currentType.name) newScore++;
     setScore((score) => score + newScore);
+    emptyContents();
   };
 
   const iconColor = (content) => {

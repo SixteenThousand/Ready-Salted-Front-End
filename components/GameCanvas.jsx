@@ -59,6 +59,7 @@ export default function GameCanvas(props) {
     };
   };
   const [fallingIngredientsInfo, setFallingIngredientsInfo] = useState([ null, null, null ]);
+  let numDrops = useRef(0);
   let timeOfNextDrop = useRef(0);
 
 
@@ -68,11 +69,14 @@ export default function GameCanvas(props) {
       setFallingIngredientsInfo((currentIngredientsInfo) => {
         const result = [...currentIngredientsInfo];
         if(result[0] === null) {
+          numDrops.current++;
           result[0] = {
             type: INGREDIENT_TYPES[Math.floor(Math.random() * INGREDIENT_TYPES.length)],
             position: dots[Math.floor(Math.random() * dots.length)],
             fallingStatus: 1,
           };
+        } else if(numDrops.current % 5 === 0 && numDrops.current > 0) {
+          activateHand();
         }
         return result;
       });
