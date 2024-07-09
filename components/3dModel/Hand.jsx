@@ -12,7 +12,7 @@ export default function Hand(props) {
     crispX,
     crispZ,
     setIsHandActive,
-    handHitHandler,
+    handCatch,
   } = props;
   const { nodes, materials } = useGLTF(require('../../assets/models/hand.glb'));
   materials.lambert2SG.opacity = 1;
@@ -26,7 +26,7 @@ export default function Hand(props) {
         setIsHandActive(false);
         setHandX(null);
         setHandZ(null);
-        if (isHit) handHitHandler();
+        if (isHit) handCatch();
       }, 500);
     },
   });

@@ -14,6 +14,7 @@ import {
 import { useGLTF } from '@react-three/drei/native';
 import { Canvas } from '@react-three/fiber/native';
 import GameCanvas from './GameCanvas';
+import { playSound } from './playSound';
 
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
 
@@ -101,7 +102,8 @@ export const Game = () => {
     setContents([null, null, null, null, null]);
   };
 
-  const handHitHandler = () => {
+  const handCatch = () => {
+    playSound(require('../assets/SoundEffects/powerUp.wav'));
     let newScore = 0;
     for (let i = 0; i < contents.length; i++)
       if (contents[i] === currentType.name) newScore++;
@@ -133,9 +135,10 @@ export const Game = () => {
             <GameCanvas
               crispX={crispX}
               crispZ={crispZ}
-              handHitHandler={handHitHandler}
+              handCatch={handCatch}
               contents={contents}
               setContents={setContents}
+              currentType={currentType}
               INGREDIENT_TYPES={INGREDIENT_TYPES}
             />
           </Canvas>
