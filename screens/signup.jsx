@@ -1,11 +1,11 @@
 import {
   View,
   Text,
-  Button,
   TextInput,
-  Image,
   TouchableOpacity,
   ImageBackground,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import React from "react";
 import styles from "../styles";
@@ -70,13 +70,18 @@ const SimpleForm = () => {
   };
 
   return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+    >
     <View style={styles.container}>
       <ImageBackground
         style={styles.Image}
         source={require("../assets/images/Ingenious idea-3.png")}
         resizeMode="cover"
       >
-        <Text style={styles.title}>Create a Username and Password</Text>
+        <Text style={styles.title}>Let's get some details</Text>
         <Controller
           control={control}
           name="username"
@@ -126,6 +131,7 @@ const SimpleForm = () => {
         </TouchableOpacity>
       </ImageBackground>
     </View>
+          </KeyboardAvoidingView>
   );
 };
 

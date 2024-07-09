@@ -4,6 +4,8 @@ import {
   TextInput,
   TouchableOpacity,
   ImageBackground,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import React from "react";
 import styles from "../styles";
@@ -18,6 +20,11 @@ const RegisterForm = ({ navigation }) => {
   };
 
   return (
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+    >
     <View style={styles.container}>
       <ImageBackground
         style={styles.Image}
@@ -59,6 +66,7 @@ const RegisterForm = ({ navigation }) => {
 
       </ImageBackground>
     </View>
+    </KeyboardAvoidingView>
   );
 };
 
