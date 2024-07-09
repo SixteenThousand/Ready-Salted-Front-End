@@ -6,6 +6,7 @@ import {
   View,
 } from 'react-native';
 import { Canvas } from '@react-three/fiber/native';
+import { useFrame } from '@react-three/fiber';
 import { useState, useEffect, Suspense } from 'react';
 import { Float } from '@react-three/drei';
 import { useGLTF } from '@react-three/drei/native';
@@ -43,9 +44,29 @@ export const Game = () => {
   const [handX, setHandX] = useState(null);
   const [handZ, setHandZ] = useState(null);
   const [contents, setContents] = useState([null, null, null, null, null]);
-  const contentTypes = ['salt', 'cheese', 'onion', 'chicken', 'bacon'];
+  const INGREDIENT_TYPES = [
+    {
+      name: "cheese",
+      asset: useGLTF(require('../assets/models/Cheese.glb')),
+      scale: 0.3,
+    },
+    {
+      name: 'salt',
+      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
+      scale: 1.0,
+    },
+    {
+      name: 'onion',
+    },
+    {
+      name: 'chicken',
+    },
+    {
+      name: 'bacon',
+    },
+  ];
   const [currentType, setCurrentType] = useState(
-    contentTypes[Math.floor(Math.random() * 5)]
+    INGREDIENT_TYPES[Math.floor(Math.random() * 5)]
   );
   const [score, setScore] = useState(0);
 
@@ -74,21 +95,6 @@ export const Game = () => {
       moveCrisp(e, 'cancel');
     });
   
-  // falling ingredient management
-  const INGREDIENT_TYPES = [
-    {
-      name: "cheese",
-      asset: useGLTF(require('../assets/models/Cheese.glb')),
-      scale: 0.3,
-    },
-    {
-      name: 'salt',
-      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
-      scale: 1.0,
-    }
-  ];
-
-
   const longPress = Gesture.LongPress()
     .runOnJS(true)
     .minDuration(0)
@@ -117,14 +123,23 @@ export const Game = () => {
       setCrispZ(crispZ + 2);
   };
 
-  const addContent = () => {
-    for (let i = 0; i < contents.length; i++)
-      if (!contents[i]) {
-        const newContents = [...contents];
-        newContents[i] = contentTypes[Math.floor(Math.random() * 5)];
-        setContents(newContents);
-        break;
+  
+  const ingredientHitHandlerFactory = (ingredientIndex) => {
+    return (ingredientType) => {
+      for (let i = 0; i < contents.length; i++) {
+        if (!contents[i]) {
+          const newContents = [...contents];
+          newContents[i] = ingredientType.name;
+          setContents(newContents);
+          break;
+        }
       }
+      setFallingIngredientsInfo((currentIngredientsInfo) => {
+        const result = [...currentIngredientsInfo];
+        result[ingredientIndex] = null;
+        return result;
+      });
+    };
   };
 
   const emptyContents = () => {
@@ -150,6 +165,35 @@ export const Game = () => {
     if (content === currentType) return styles.green;
     if (content !== currentType) return styles.red;
   };
+  
+  
+  
+  // TEST STUFF
+  const [fallingIngredientsInfo, setFallingIngredientsInfo] = useState([ null, null, null ]);
+  const [totalNumDrops, setTotalNumDrops] = useState(0);
+  let timeOfNextDrop = 0; 
+  
+  /* useFrame(({ clock }) => {
+    if(clock.getElapsedTime() > timeOfNextDrop) {
+      timeOfNextDrop += 3;
+      // code here runs every 3 seconds (approx.)
+      setFallingIngredientsInfo((currentIngredientsInfo) => {
+        const result = [...currentIngredientsInfo];
+        for(let i=0; i<result.length; i++) {
+          if(result[i] === null) {
+            result[i] = {
+              type: INGREDIENT_TYPES[Math.floor(Math.random() * INGREDIENT_TYPES.length)],
+              position: dots[Math.floor(Math.random() * dots.length)],
+              fallingStatus: 0,
+            };
+            break;
+          }
+        }
+        return result;
+      });
+    }
+  }); */
+  
 
   return (
     <GestureHandlerRootView style={styles.canvas}>
@@ -186,6 +230,18 @@ export const Game = () => {
               </Float>
               {/* <Ingredient onHit={handleIngredientHit} dots={dots} /> */}
             </Suspense>
+            {fallingIngredientsInfo.map((info,index) => {
+              return (<Ingredient
+                crispX={crispX}
+                crispZ={crispZ}
+                gridX={info ? info.position[0] : 0}
+                gridZ={info ? info.position[1] : 0}
+                type={info ? info.type : INGREDIENT_TYPES[0]}
+                onHit={ingredientHitHandlerFactory(index)}
+                fallingStatus={info ? info.fallingStatus : 0}
+                key={index}
+              />);
+            })}
             {isHandActive ? (
               <Hand
                 handX={handX}
