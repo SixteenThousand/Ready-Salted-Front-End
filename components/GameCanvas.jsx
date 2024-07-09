@@ -88,7 +88,6 @@ export default function GameCanvas(props) {
             position: dots[Math.floor(Math.random() * dots.length)],
             fallingStatus: 1,
           };
-          console.log(result);
           return result;
         });
       else activateHand();

@@ -103,7 +103,7 @@ export const Game = () => {
   };
 
   const handCatch = () => {
-    playSound(require('../assets/SoundEffects/powerUp.wav'));
+    playSound(require('../assets/SoundEffects/score.mp3'));
     let newScore = 0;
     for (let i = 0; i < contents.length; i++)
       if (contents[i] === currentType.name) newScore++;

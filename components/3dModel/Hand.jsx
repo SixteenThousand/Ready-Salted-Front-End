@@ -57,9 +57,9 @@ export default function Hand(props) {
       position-z={handZ}
     >
       <mesh
-        position={[0.75, -0.05, 0.25]}
+        position={[0.5, -0.05, 0.2]}
         rotation={[Math.PI / 2, Math.PI, 0]}
-        scale={0.05}
+        scale={0.04}
         geometry={nodes.hands.geometry}
         material={materials.lambert2SG}
         material-transparent
