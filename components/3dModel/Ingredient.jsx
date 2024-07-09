@@ -3,10 +3,10 @@ import { useFrame } from '@react-three/fiber';
 
 
 export default function Ingredient(props) {
-  const { type, gridX, gridZ, numDrops, onHit, } = props;
+  const { type, gridX, gridZ, crispX, crispZ, fallingStatus, onHit, } = props;
   const ref = useRef();
   let timeOfLastDrop = 0;
-  let internalNumDrops = 0;
+  let internalFallingStatus = 0;
   let isActive = false;
   const ACCELERATION = 0.06;
   const INITIAL_HEIGHT = 5;
@@ -16,6 +16,7 @@ export default function Ingredient(props) {
     ref.current.position.y = INITIAL_HEIGHT;
     ref.current.position.x = gridX;
     ref.current.position.z = gridZ;
+    internalFallingStatus = 0;
   },[]);
   
   useFrame(({ clock }) => {
@@ -31,10 +32,10 @@ export default function Ingredient(props) {
       }
     } else {
       // check if the "main game script" has told this ingredient to drop
-      if(internalNumDrops < numDrops) {
+      if(internalFallingStatus < fallingStatus) {
         timeOfLastDrop = clock.getElapsedTime();
         isActive = true;
-        internalNumDrops = numDrops;
+        internalFallingStatus = fallingStatus;
       }
     }
   });
