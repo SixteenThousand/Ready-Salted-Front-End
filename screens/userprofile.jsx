@@ -4,12 +4,15 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from "react-native";
 import { Audio } from "expo-av";
 import styles from "../styles";
-import { userData } from "three/examples/jsm/nodes/Nodes.js";
+import { deleteUserByUsername } from "../api/api";
 
-
+const hardcodedUser = {
+  username: "luc",
+};
 
 export default function ScoreScreen() {
   return (
@@ -19,38 +22,60 @@ export default function ScoreScreen() {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        <Text style={styles.titleText}>User Profile</Text>
-        <Text style={styles.titleText}>`You are logged in as ${userData}`</Text>
-        <BoopButton />
+        <Text style={styles.title}>User Profile</Text>
+        <Text style={styles.title}>Hi there {hardcodedUser.username}</Text>
+        <DeleteButton username={hardcodedUser.username} />
       </View>
     </ImageBackground>
   );
-
-}const BoopButton = () => {
+}
+const DeleteButton = ({ username }) => {
   const [sound, setSound] = useState();
 
   async function playSound() {
-    console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync(
-       require('../assets/SoundEffects/Wrong.wav')
+      require("../assets/SoundEffects/hitHurt.wav")
     );
     setSound(sound);
-
-    console.log('Playing Sound');
-    await sound.playAsync(); 
+    await sound.playAsync();
   }
 
   React.useEffect(() => {
     return sound
       ? () => {
-          console.log('Unloading Sound');
           sound.unloadAsync();
         }
       : undefined;
   }, [sound]);
 
+  const handleDeleteAccount = async () => {
+    Alert.alert(
+      "Delete Account",
+      "Are you sure you want to leave us?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: async () => {
+            try {
+              const response = await deleteUserByUsername(username);
+              console.log(response);
+              playSound();
+            } catch (error) {
+              console.error("Failed to delete account:", error);
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
-    <TouchableOpacity onPress={playSound} style={styles.Button4}>
+    <TouchableOpacity onPress={handleDeleteAccount} style={styles.Button4}>
       <Text style={styles.ButtonText}>Press here to delete your account</Text>
     </TouchableOpacity>
   );

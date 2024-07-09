@@ -42,7 +42,8 @@
     "react-native-sound": "^0.11.2",
     "react-native-svg-transformer": "^1.4.0",
     "three": "^0.165.0",
-    "use-sound": "^4.0.3"
+    "use-sound": "^4.0.3",
+    "react-native-web": "~0.19.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
