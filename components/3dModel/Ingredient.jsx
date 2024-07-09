@@ -32,7 +32,7 @@ export default function Ingredient(props) {
       ref.current.rotation.y += 0.05;
       if (ref.current.position.y <= GRID_HEIGHT) {
         // reset & wait for next drop to be triggered from outside
-        ref.current.position.y = INITIAL_HEIGHT;
+        ref.current.position.y = -1000;
         isActive = false;
         onHit({ position: [gridX, gridZ], type });
       }
