@@ -4,8 +4,16 @@ import { useFrame } from '@react-three/fiber';
 import { animated, useSpring } from '@react-spring/three';
 
 export default function Hand(props) {
-  const { handX, handZ, crispX, crispZ, setIsHandActive, handHitHandler } =
-    props;
+  const {
+    handX,
+    setHandX,
+    handZ,
+    setHandZ,
+    crispX,
+    crispZ,
+    setIsHandActive,
+    handHitHandler,
+  } = props;
   const { nodes, materials } = useGLTF(require('../../assets/models/hand.glb'));
   materials.lambert2SG.opacity = 1;
   const [handY, setHandY] = useState(null);
@@ -16,8 +24,10 @@ export default function Hand(props) {
     onRest: () => {
       setTimeout(() => {
         setIsHandActive(false);
+        setHandX(null);
+        setHandZ(null);
         if (isHit) handHitHandler();
-      }, 1000);
+      }, 500);
     },
   });
 
@@ -25,7 +35,7 @@ export default function Hand(props) {
     setHandY(5);
     setTimeout(() => {
       setHandY(0);
-    }, 1000);
+    }, 500);
   }, []);
 
   useFrame(() => {

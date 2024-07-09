@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useState, } from 'react';
+import { useState } from 'react';
 import {
   GestureHandlerRootView,
   Gesture,
@@ -14,9 +14,6 @@ import {
 import { useGLTF } from '@react-three/drei/native';
 import { Canvas } from '@react-three/fiber/native';
 import GameCanvas from './GameCanvas';
-
-
-
 
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
 
@@ -36,14 +33,14 @@ export const Game = () => {
   const [contents, setContents] = useState([null, null, null, null, null]);
   const INGREDIENT_TYPES = [
     {
-      name: "cheese",
+      name: 'cheese',
       asset: useGLTF(require('../assets/models/Cheese.glb')),
-      scale: 0.3,
+      scale: 0.2,
     },
     {
       name: 'salt',
       asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
-      scale: 1.0,
+      scale: 2.0,
     },
     // {
     //   name: 'onion',
@@ -60,7 +57,6 @@ export const Game = () => {
   );
   const [score, setScore] = useState(0);
 
-
   const pan = Gesture.Pan()
     .runOnJS(true)
     .onTouchesDown((e) => {
@@ -72,7 +68,7 @@ export const Game = () => {
     .onTouchesCancelled((e) => {
       moveCrisp(e, 'cancel');
     });
-  
+
   const longPress = Gesture.LongPress()
     .runOnJS(true)
     .minDuration(0)
@@ -118,10 +114,7 @@ export const Game = () => {
     if (content === currentType.name) return styles.green;
     if (content !== currentType.name) return styles.red;
   };
-  
-  
-  
-  
+
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
@@ -136,7 +129,7 @@ export const Game = () => {
           })}
         </View>
         <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
-          <Canvas camera={{ position: [0, 2, 7], rotation: [0, 0, 0] }}>
+          <Canvas camera={{ position: [0, 2, 8], rotation: [0, 0, 0] }}>
             <GameCanvas
               crispX={crispX}
               crispZ={crispZ}

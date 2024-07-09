@@ -6,7 +6,6 @@ import Hand from './3dModel/Hand';
 import Ingredient from './3dModel/Ingredient';
 import { animated, useSpring } from '@react-spring/three';
 
-
 export default function GameCanvas(props) {
   const {
     crispX,
@@ -39,8 +38,10 @@ export default function GameCanvas(props) {
   };
   const ingredientHitHandlerFactory = (ingredientIndex) => {
     return ({ position, type }) => {
-      if( position[0] === Number(JSON.stringify(crispX)) &&
-          position[1] === Number(JSON.stringify(crispZ))) {
+      if (
+        position[0] === Number(JSON.stringify(crispX)) &&
+        position[1] === Number(JSON.stringify(crispZ))
+      ) {
         // add stuff to crisp packet contents
         for (let i = 0; i < contents.length; i++) {
           if (!contents[i]) {
@@ -58,34 +59,37 @@ export default function GameCanvas(props) {
       });
     };
   };
-  const [fallingIngredientsInfo, setFallingIngredientsInfo] = useState([ null, null, null ]);
+  const [fallingIngredientsInfo, setFallingIngredientsInfo] = useState([
+    null,
+    null,
+    null,
+  ]);
   let numDrops = useRef(0);
   let timeOfNextDrop = useRef(0);
 
-
-   useFrame(({ clock }) => {
-    if(clock.getElapsedTime() > timeOfNextDrop.current) {
-      timeOfNextDrop.current += 2.5;
-      setFallingIngredientsInfo((currentIngredientsInfo) => {
-        const result = [...currentIngredientsInfo];
-        if(result[0] === null) {
-          numDrops.current++;
+  useFrame(({ clock }) => {
+    if (clock.getElapsedTime() > timeOfNextDrop.current) {
+      timeOfNextDrop.current += 4;
+      numDrops.current++;
+      if (numDrops.current % 5 !== 0)
+        setFallingIngredientsInfo((currentIngredientsInfo) => {
+          const result = [...currentIngredientsInfo];
           result[0] = {
-            type: INGREDIENT_TYPES[Math.floor(Math.random() * INGREDIENT_TYPES.length)],
+            type: INGREDIENT_TYPES[
+              Math.floor(Math.random() * INGREDIENT_TYPES.length)
+            ],
             position: dots[Math.floor(Math.random() * dots.length)],
             fallingStatus: 1,
           };
-        } else if(numDrops.current % 5 === 0 && numDrops.current > 0) {
-          activateHand();
-        }
-        return result;
-      });
+          console.log(result);
+          return result;
+        });
+      else activateHand();
     }
   });
-  
 
-  
-  return <>
+  return (
+    <>
       {/* <Canvas
       camera={{ position: [0, 10, 0], rotation: [-Math.PI / 2, 0, 0] }}
     > */}
@@ -106,7 +110,7 @@ export default function GameCanvas(props) {
         </Float>
         {/* <Ingredient onHit={handleIngredientHit} dots={dots} /> */}
       </Suspense>
-      {fallingIngredientsInfo[0] ?
+      {fallingIngredientsInfo[0] ? (
         <Ingredient
           type={fallingIngredientsInfo[0].type}
           gridX={fallingIngredientsInfo[0].position[0]}
@@ -114,13 +118,13 @@ export default function GameCanvas(props) {
           onHit={ingredientHitHandlerFactory(0)}
           fallingStatus={fallingIngredientsInfo[0].fallingStatus}
         />
-      :
-        null
-      }
+      ) : null}
       {isHandActive ? (
         <Hand
           handX={handX}
+          setHandX={setHandX}
           handZ={handZ}
+          setHandZ={setHandZ}
           crispX={animatedCrispX}
           crispZ={animatedCrispZ}
           setIsHandActive={setIsHandActive}
@@ -134,13 +138,15 @@ export default function GameCanvas(props) {
             <sphereGeometry args={[0.05]} />
             <meshStandardMaterial
               color={
-                dot[0] === handX && dot[1] === handZ && isHandActive
-                  ? 'black'
+                dot[0] === (handX || fallingIngredientsInfo[0]?.position[0]) &&
+                dot[1] === (handZ || fallingIngredientsInfo[0]?.position[1])
+                  ? 0xff3300
                   : 'white'
               }
             />
           </mesh>
         );
       })}
-    </>;
+    </>
+  );
 }
