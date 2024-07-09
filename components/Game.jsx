@@ -12,6 +12,7 @@ import {
   GestureDetector,
 } from 'react-native-gesture-handler';
 import { useGLTF } from '@react-three/drei/native';
+import { Canvas } from '@react-three/fiber/native';
 import GameCanvas from './GameCanvas';
 
 
@@ -44,18 +45,18 @@ export const Game = () => {
       asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
       scale: 1.0,
     },
-    {
-      name: 'onion',
-    },
-    {
-      name: 'chicken',
-    },
-    {
-      name: 'bacon',
-    },
+    // {
+    //   name: 'onion',
+    // },
+    // {
+    //   name: 'chicken',
+    // },
+    // {
+    //   name: 'bacon',
+    // },
   ];
   const [currentType, setCurrentType] = useState(
-    INGREDIENT_TYPES[Math.floor(Math.random() * 5)]
+    INGREDIENT_TYPES[Math.floor(Math.random() * INGREDIENT_TYPES.length)]
   );
   const [score, setScore] = useState(0);
 
@@ -114,8 +115,8 @@ export const Game = () => {
 
   const iconColor = (content) => {
     if (!content) return styles.white;
-    if (content === currentType) return styles.green;
-    if (content !== currentType) return styles.red;
+    if (content === currentType.name) return styles.green;
+    if (content !== currentType.name) return styles.red;
   };
   
   
@@ -135,13 +136,16 @@ export const Game = () => {
           })}
         </View>
         <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
-          <GameCanvas
-            crispX={crispX}
-            crispZ={crispZ}
-            handHitHandler={handHitHandler}
-            setContents={setContents}
-            INGREDIENT_TYPES={INGREDIENT_TYPES}
-          />
+          <Canvas camera={{ position: [0, 2, 7], rotation: [0, 0, 0] }}>
+            <GameCanvas
+              crispX={crispX}
+              crispZ={crispZ}
+              handHitHandler={handHitHandler}
+              contents={contents}
+              setContents={setContents}
+              INGREDIENT_TYPES={INGREDIENT_TYPES}
+            />
+          </Canvas>
         </GestureDetector>
       </ImageBackground>
     </GestureHandlerRootView>

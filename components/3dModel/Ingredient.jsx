@@ -1,30 +1,38 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { animated, useSpring } from '@react-spring/three';
 
 
 export default function Ingredient(props) {
-  const { type, gridX, gridZ, crispX, crispZ, fallingStatus, onHit, } = props;
+  const { type, gridX, gridZ, fallingStatus, onHit, } = props;
   const ref = useRef();
   let timeOfLastDrop = 0;
   let internalFallingStatus = 0;
   let isActive = false;
-  const ACCELERATION = 0.06;
+  // const ACCELERATION = 0.40;
+  const [ingredientY, setIngredientY] = useState(null);
   const INITIAL_HEIGHT = 5;
   const GRID_HEIGHT = 0;
+  const { animatedIngredientY } = useSpring({
+    animatedIngredientY: ingredientY,
+    config: { delay: 0, duration: 3000 },
+  });
+  
   
   useEffect(() => {
-    ref.current.position.y = INITIAL_HEIGHT;
-    ref.current.position.x = gridX;
-    ref.current.position.z = gridZ;
+    setIngredientY(INITIAL_HEIGHT);
+    setTimeout(() => {
+      setIngredientY(0);
+    }, 500);
     internalFallingStatus = 0;
   },[]);
   
   useFrame(({ clock }) => {
     if(isActive) {
-      ref.current.position.y = INITIAL_HEIGHT - ACCELERATION *
-        Math.pow(clock.getElapsedTime() - timeOfLastDrop, 2);
+      // ref.current.position.y = initialHeight - ACCELERATION *
+        // Math.pow(clock.getElapsedTime() - timeOfLastDrop, 2);
       ref.current.rotation.y += 0.05;
-      if(ref.current.position.y < GRID_HEIGHT) {
+      if(ref.current.position.y <= GRID_HEIGHT) {
         // reset & wait for next drop to be triggered from outside
         ref.current.position.y = INITIAL_HEIGHT;
         isActive = false;
@@ -40,8 +48,11 @@ export default function Ingredient(props) {
     }
   });
   
-  return (<primitive
+  return (<animated.primitive
     object={type.asset.scene}
+    position-x={gridX}
+    position-z={gridZ}
+    position-y={animatedIngredientY}
     scale={type.scale || 1.0}
     rotation={[0,0,Math.PI / 8]}
     ref={ref}

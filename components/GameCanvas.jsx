@@ -1,5 +1,4 @@
-import { Canvas } from '@react-three/fiber/native';
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useRef } from 'react';
 import { Float } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import Crisp from './3dModel/Crisp';
@@ -13,6 +12,7 @@ export default function GameCanvas(props) {
     crispX,
     crispZ,
     handHitHandler,
+    contents,
     setContents,
     INGREDIENT_TYPES,
   } = props;
@@ -38,13 +38,17 @@ export default function GameCanvas(props) {
     setIsHandActive(true);
   };
   const ingredientHitHandlerFactory = (ingredientIndex) => {
-    return (ingredientType) => {
-      for (let i = 0; i < contents.length; i++) {
-        if (!contents[i]) {
-          const newContents = [...contents];
-          newContents[i] = ingredientType.name;
-          setContents(newContents);
-          break;
+    return ({ position, type }) => {
+      if( position[0] === Number(JSON.stringify(crispX)) &&
+          position[1] === Number(JSON.stringify(crispZ))) {
+        // add stuff to crisp packet contents
+        for (let i = 0; i < contents.length; i++) {
+          if (!contents[i]) {
+            const newContents = [...contents];
+            newContents[i] = type.name;
+            setContents(newContents);
+            break;
+          }
         }
       }
       setFallingIngredientsInfo((currentIngredientsInfo) => {
@@ -55,35 +59,29 @@ export default function GameCanvas(props) {
     };
   };
   const [fallingIngredientsInfo, setFallingIngredientsInfo] = useState([ null, null, null ]);
-  const [totalNumDrops, setTotalNumDrops] = useState(0);
-  let timeOfNextDrop = 0; 
+  let timeOfNextDrop = useRef(0);
 
 
-  /* useFrame(({ clock }) => {
-    if(clock.getElapsedTime() > timeOfNextDrop) {
-      timeOfNextDrop += 3;
-      // code here runs every 3 seconds (approx.)
+   useFrame(({ clock }) => {
+    if(clock.getElapsedTime() > timeOfNextDrop.current) {
+      timeOfNextDrop.current += 2.5;
       setFallingIngredientsInfo((currentIngredientsInfo) => {
         const result = [...currentIngredientsInfo];
-        for(let i=0; i<result.length; i++) {
-          if(result[i] === null) {
-            result[i] = {
-              type: INGREDIENT_TYPES[Math.floor(Math.random() * INGREDIENT_TYPES.length)],
-              position: dots[Math.floor(Math.random() * dots.length)],
-              fallingStatus: 0,
-            };
-            break;
-          }
+        if(result[0] === null) {
+          result[0] = {
+            type: INGREDIENT_TYPES[Math.floor(Math.random() * INGREDIENT_TYPES.length)],
+            position: dots[Math.floor(Math.random() * dots.length)],
+            fallingStatus: 1,
+          };
         }
         return result;
       });
     }
-  }); */
+  });
   
 
   
-  return (<>
-    <Canvas camera={{ position: [0, 2, 7], rotation: [0, 0, 0] }}>
+  return <>
       {/* <Canvas
       camera={{ position: [0, 10, 0], rotation: [-Math.PI / 2, 0, 0] }}
     > */}
@@ -104,18 +102,17 @@ export default function GameCanvas(props) {
         </Float>
         {/* <Ingredient onHit={handleIngredientHit} dots={dots} /> */}
       </Suspense>
-      {fallingIngredientsInfo.map((info,index) => {
-        return (<Ingredient
-          crispX={crispX}
-          crispZ={crispZ}
-          gridX={info ? info.position[0] : 0}
-          gridZ={info ? info.position[1] : 0}
-          type={info ? info.type : INGREDIENT_TYPES[0]}
-          onHit={ingredientHitHandlerFactory(index)}
-          fallingStatus={info ? info.fallingStatus : 0}
-          key={index}
-        />);
-      })}
+      {fallingIngredientsInfo[0] ?
+        <Ingredient
+          type={fallingIngredientsInfo[0].type}
+          gridX={fallingIngredientsInfo[0].position[0]}
+          gridZ={fallingIngredientsInfo[0].position[1]}
+          onHit={ingredientHitHandlerFactory(0)}
+          fallingStatus={fallingIngredientsInfo[0].fallingStatus}
+        />
+      :
+        null
+      }
       {isHandActive ? (
         <Hand
           handX={handX}
@@ -141,6 +138,5 @@ export default function GameCanvas(props) {
           </mesh>
         );
       })}
-    </Canvas>
-    </>);
+    </>;
 }
