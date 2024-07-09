@@ -9,6 +9,7 @@ import InstructionsScreen from '../screens/instructions';
 import { Game } from '../components/Game';
 import UserScreen from '../screens/userprofile';
 import ScoreScreen from '../screens/highscores';
+import CreditsScreen from '../screens/credits';
 
 
 
@@ -39,6 +40,7 @@ const Home = () => {
         <Stack.Screen name='game' component={Game} options={{ ...headerStyles }}/>
         <Stack.Screen name="profile" component={UserScreen} options={{ ...headerStyles }}/>
         <Stack.Screen name="scores" component={ScoreScreen} options={{ ...headerStyles }}/>
+        <Stack.Screen name="credits" component={CreditsScreen} options={{ ...headerStyles }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
