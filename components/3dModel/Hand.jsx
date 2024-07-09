@@ -20,7 +20,7 @@ export default function Hand(props) {
   let isHit = false;
   const { animatedHandY } = useSpring({
     animatedHandY: handY,
-    config: { delay: 1000, duration: 3000 },
+    config: { delay: 1000, duration: 1500 },
     onRest: () => {
       setTimeout(() => {
         setIsHandActive(false);

@@ -69,7 +69,7 @@ export default function GameCanvas(props) {
 
   useFrame(({ clock }) => {
     if (clock.getElapsedTime() > timeOfNextDrop.current) {
-      timeOfNextDrop.current += 4;
+      timeOfNextDrop.current += 2.5;
       numDrops.current++;
       if (numDrops.current % 5 !== 0)
         setFallingIngredientsInfo((currentIngredientsInfo) => {
@@ -87,6 +87,16 @@ export default function GameCanvas(props) {
       else activateHand();
     }
   });
+
+  const dotColor = (dot) => {
+    if (dot[0] === handX && dot[1] === handZ && isHandActive) return 0xff3300;
+    else if (
+      dot[0] === fallingIngredientsInfo[0]?.position[0] &&
+      dot[1] === fallingIngredientsInfo[0]?.position[1]
+    )
+      return 0xff3300;
+    else return 'white';
+  };
 
   return (
     <>
@@ -136,14 +146,7 @@ export default function GameCanvas(props) {
         return (
           <mesh key={index} position={[dot[0], 0, dot[1]]}>
             <sphereGeometry args={[0.05]} />
-            <meshStandardMaterial
-              color={
-                dot[0] === (handX || fallingIngredientsInfo[0]?.position[0]) &&
-                dot[1] === (handZ || fallingIngredientsInfo[0]?.position[1])
-                  ? 0xff3300
-                  : 'white'
-              }
-            />
+            <meshStandardMaterial color={dotColor(dot)} />
           </mesh>
         );
       })}
