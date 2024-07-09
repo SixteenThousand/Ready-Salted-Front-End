@@ -62,7 +62,13 @@ import { useEffect } from "react";
 
               <TouchableOpacity style={styles.Button4} onPress={() => navigation.navigate("scores")}>
                   <Text style={styles.ButtonText}>High Scores</Text>
+              </TouchableOpacity> 
+
+              <TouchableOpacity style={styles.Button4} onPress={() => navigation.navigate("credits")}>
+                  <Text style={styles.ButtonText}>Credits</Text>
               </TouchableOpacity>  
+
+
 
               </ImageBackground>
 
