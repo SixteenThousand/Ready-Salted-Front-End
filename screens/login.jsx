@@ -7,16 +7,26 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import React from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../context/userProvider";
 import styles from "../styles";
 import { useForm, Controller } from "react-hook-form";
 import { color } from "three/examples/jsm/nodes/Nodes.js";
+import { login } from '../utils/login'
 
 const RegisterForm = ({ navigation }) => {
   const { control, handleSubmit } = useForm();
+  const [ loggedIn, setLoggedIn ] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = ({ username, password }) => {
+    login(username, password).then((result) => {
+      if(result){
+        setUser(result)
+        setLoggedIn(true);
+        navigation.navigate("title")
+      }
+    })
   };
 
   return (
@@ -36,23 +46,25 @@ const RegisterForm = ({ navigation }) => {
         <Text style={styles.title}>Login!</Text>
         <Controller
           control={control}
-          name="fieldName"
-          render={({ field }) => (
+          name="username"
+          render={({ field: { onChange, value } }) => (
             <TextInput
-              {...field}
               style={styles.input}
               placeholder="User Name"
+              onChangeText={onChange}
+              value={value}
             />
           )}
         />
         <Controller
           control={control}
-          name="fieldName"
-          render={({ field }) => (
+          name="password"
+          render={({ field: { onChange, value } }) => (
             <TextInput
-              {...field}
               style={styles.input}
               placeholder="Password"
+              onChangeText={onChange}
+              value={value}
             />
           )}
         />
@@ -60,7 +72,8 @@ const RegisterForm = ({ navigation }) => {
         <TouchableOpacity
           style={styles.Button2}
           title="Log in"
-          onPress={() => navigation.navigate("title")}
+          onPress={handleSubmit(onSubmit)}
+          //onPress={() => navigation.navigate("title")}
         ><Text style={styles.ButtonText}>Log in</Text>
         </TouchableOpacity>
 
