@@ -38,6 +38,8 @@ In single player as the timer goes on the speed of the falling ingredients
 increases as well as the speed of the Hungry human hand, which will 
 gradually increase difficulty.
 
+This game is served by the backend found here: https://github.com/141Soft/be-ready-salted
+
 
 ## Developer Setup Notes
 After cloning, run

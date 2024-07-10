@@ -34,7 +34,11 @@ const CreditsScreen = ({ navigation }) => {
             - Hands by Michael Fuchs [CC-BY] via Poly Pizza
           </Text>
           <Text style={localStyles.attributionItem}>
-            - Soundtrack by ...
+            - Game background image from Freepik.com
+          </Text>
+          <Text style={localStyles.attributionItem}>
+            - Soundtrack: "Paradise Found" Kevin MacLeod (incompetech.com) and
+                "Galactic Rap " Kevin MacLeod (incompetech.com)
           </Text>
         </View>
       </View>

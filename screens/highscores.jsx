@@ -6,9 +6,12 @@ import {
   StyleSheet,
 } from "react-native";
 import styles from "../styles"; 
+import { useContext } from "react";
+import { UserContext } from "../context/userProvider"; 
+
 
 const ScoreScreen = () => {
-  const bestScore = 12345; // Example best score
+  const { user } = useContext(UserContext); 
 
   return (
     <ImageBackground
@@ -20,7 +23,7 @@ const ScoreScreen = () => {
         <Text style={localStyles.title}>HIGH SCORES</Text>
         <View style={localStyles.scoreFrame}>
           <Text style={localStyles.scoreText}>Personal Best</Text>
-          <Text style={localStyles.score}>{bestScore}</Text>
+          <Text style={localStyles.score}>{user.score}</Text>
         </View>
       </View>
     </ImageBackground>
