@@ -14,6 +14,8 @@ import {
 import { useGLTF } from '@react-three/drei/native';
 import { Canvas } from '@react-three/fiber/native';
 import GameCanvas from './GameCanvas';
+import EndScreen from './EndScreen';
+import Timer from './Timer';
 import { playSound } from './playSound';
 
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
@@ -27,6 +29,8 @@ const icons = {
 };
 
 export const Game = () => {
+  const TOTAL_GAME_TIME = 5 * 60; // measured in seconds
+  const [isGameOver, setIsGameOver] = useState(false);
   const [crispX, setCrispX] = useState(0);
   const [crispZ, setCrispZ] = useState(0);
   const [touchDownX, setTouchDownX] = useState(0);
@@ -117,10 +121,22 @@ export const Game = () => {
     if (content !== currentType.name) return styles.red;
   };
 
+  // {timeLeft > 0 ?
+  //   <View>
+  //     <Text>Game Over!</Text>
+  //   </View>
+  //     :
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
-        <Text style={styles.highScore}>Score: {score}</Text>
+        <View style={styles.gameInfoContainer}>
+          <Timer
+            totalGameTime={TOTAL_GAME_TIME}
+            setIsGameOver={setIsGameOver}
+            textStyle={styles.timer}
+          />
+          <Text style={styles.highScore}>Score: {score}</Text>
+        </View>
         <View style={styles.circleContainer}>
           {contents.map((content, index) => {
             return (
@@ -131,17 +147,21 @@ export const Game = () => {
           })}
         </View>
         <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
-          <Canvas camera={{ position: [0, 2, 8], rotation: [0, 0, 0] }}>
-            <GameCanvas
-              crispX={crispX}
-              crispZ={crispZ}
-              handCatch={handCatch}
-              contents={contents}
-              setContents={setContents}
-              currentType={currentType}
-              INGREDIENT_TYPES={INGREDIENT_TYPES}
-            />
-          </Canvas>
+          {isGameOver ?
+            <EndScreen setIsGameOver={setIsGameOver} />
+          :
+            <Canvas camera={{ position: [0, 2, 8], rotation: [0, 0, 0] }}>
+              <GameCanvas
+                crispX={crispX}
+                crispZ={crispZ}
+                handCatch={handCatch}
+                contents={contents}
+                setContents={setContents}
+                currentType={currentType}
+                INGREDIENT_TYPES={INGREDIENT_TYPES}
+              />
+            </Canvas>
+          }
         </GestureDetector>
       </ImageBackground>
     </GestureHandlerRootView>
@@ -157,15 +177,28 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
   },
-  highScore: {
+  gameInfoContainer: {
     position: 'absolute',
     top: 20,
     right: 20,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  highScore: {
     fontSize: 24,
     color: 'white',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     padding: 10,
     borderRadius: 5,
+    margin: 5,
+  },
+  timer: {
+    fontSize: 24,
+    color: 'white',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 10,
+    borderRadius: 5,
+    margin: 5,
   },
   circleContainer: {
     position: 'absolute',
