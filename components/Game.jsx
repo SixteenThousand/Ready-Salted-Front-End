@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   GestureHandlerRootView,
   Gesture,
@@ -15,6 +15,7 @@ import { useGLTF } from '@react-three/drei/native';
 import { Canvas } from '@react-three/fiber/native';
 import GameCanvas from './GameCanvas';
 import { playSound } from './playSound';
+import { Audio } from "expo-av";
 
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
 
@@ -29,6 +30,39 @@ const icons = {
 };
 
 export const Game = () => {
+//music
+useEffect(() => {
+  let sound = new Audio.Sound();
+
+  async function playSound() {
+    try {
+      await sound.loadAsync(require("../assets/MP3/Galactic Rap.mp3"));
+
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.replayAsync();
+        }
+      });
+
+      await sound.playAsync();
+    } catch (error) {
+      console.log("Failed to play the sound", error);
+    }
+  }
+
+  playSound();
+
+  return () => {
+    if (sound) {
+      sound.stopAsync();
+      sound.unloadAsync();
+    }
+  };
+}, []);
+
+
+
+
   const [crispX, setCrispX] = useState(0);
   const [crispZ, setCrispZ] = useState(0);
   const [touchDownX, setTouchDownX] = useState(0);
