@@ -82,7 +82,7 @@ export default function GameCanvas(props) {
         setFallingIngredientsInfo((currentIngredientsInfo) => {
           const result = [...currentIngredientsInfo];
           let ingredientToFall;
-          if (Math.random() < 0.5) {
+          if (Math.random() < 0.25) {
             ingredientToFall = currentType;
             console.log('round1', ingredientToFall.name);
           } else {
