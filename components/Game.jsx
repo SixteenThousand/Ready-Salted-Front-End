@@ -35,26 +35,26 @@ export const Game = () => {
   const [touchDownY, setTouchDownY] = useState(0);
   const [contents, setContents] = useState([null, null, null, null, null]);
   const INGREDIENT_TYPES = [
-    // {
-    //   name: 'cheese',
-    //   asset: useGLTF(require('../assets/models/Cheese.glb')),
-    //   scale: 0.3,
-    // },
-    // {
-    //   name: 'salt',
-    //   asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
-    //   scale: 2.0,
-    // },
-    // {
-    //   name: 'chicken',
-    //   asset: useGLTF(require('../assets/models/chicken.glb')),
-    //   scale: 0.008,
-    // },
-    // {
-    //   name: 'bacon',
-    //   asset: useGLTF(require('../assets/models/bacon.glb')),
-    //   scale: 0.08,
-    // },
+    {
+      name: 'cheese',
+      asset: useGLTF(require('../assets/models/Cheese.glb')),
+      scale: 0.3,
+    },
+    {
+      name: 'salt',
+      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
+      scale: 2.0,
+    },
+    {
+      name: 'chicken',
+      asset: useGLTF(require('../assets/models/chicken.glb')),
+      scale: 0.008,
+    },
+    {
+      name: 'bacon',
+      asset: useGLTF(require('../assets/models/bacon.glb')),
+      scale: 0.08,
+    },
     {
       name: 'vinegar',
       asset: useGLTF(require('../assets/models/vinegar.glb')),
@@ -134,6 +134,16 @@ export const Game = () => {
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
         <Text style={styles.highScore}>Score: {score}</Text>
+
+        <View style={styles.hintContainter}>
+          <View style={styles.hint}>
+            <ImageBackground
+              source={icons[currentType.name]}
+              style={styles.hintIcon}
+            />
+          </View>
+        </View>
+
         <View style={styles.circleContainer}>
           {contents.map((content, index) => {
             return (
@@ -188,6 +198,24 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     gap: 10,
+  },
+  hintContainter: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+  },
+  hint: {
+    width: 80,
+    height: 80,
+    backgroundColor: 'white',
+    borderRadius: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+  },
+  hintIcon: {
+    width: 55,
+    height: 55,
   },
   white: {
     width: 50,

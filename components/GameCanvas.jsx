@@ -76,9 +76,9 @@ export default function GameCanvas(props) {
 
   useFrame(({ clock }) => {
     if (clock.getElapsedTime() > timeOfNextDrop.current) {
-      timeOfNextDrop.current += 2.5;
+      timeOfNextDrop.current += 3;
       numDrops.current++;
-      if (numDrops.current % 5 !== 0)
+      if (numDrops.current % 6 !== 0)
         setFallingIngredientsInfo((currentIngredientsInfo) => {
           const result = [...currentIngredientsInfo];
           result[0] = {
@@ -121,7 +121,7 @@ export default function GameCanvas(props) {
             position-x={animatedCrispX}
             position-z={animatedCrispZ}
           >
-            <Crisp currentType={currentType}/>
+            <Crisp currentType={currentType} />
           </animated.group>
         </Float>
         {/* <Ingredient onHit={handleIngredientHit} dots={dots} /> */}
