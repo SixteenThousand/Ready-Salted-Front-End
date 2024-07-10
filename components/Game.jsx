@@ -168,7 +168,6 @@ export const Game = () => {
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
-        <Text style={styles.highScore}>Score: {score}</Text>
 
         <View style={styles.hintContainter}>
           <View style={styles.hint}>

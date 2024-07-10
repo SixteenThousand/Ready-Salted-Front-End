@@ -2,7 +2,6 @@ import { useGLTF } from '@react-three/drei/native';
 import { useMemo } from 'react';
 
 export default function Hand({ currentType }) {
-  console.log(currentType.name);
   const { scene } = useGLTF(crispModel(currentType.name));
   return <primitive object={scene} rotation={[0, -Math.PI / 2, 0]} />;
 }

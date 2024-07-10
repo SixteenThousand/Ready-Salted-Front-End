@@ -84,13 +84,11 @@ export default function GameCanvas(props) {
           let ingredientToFall;
           if (Math.random() < 0.25) {
             ingredientToFall = currentType;
-            console.log('round1', ingredientToFall.name);
           } else {
             ingredientToFall =
               INGREDIENT_TYPES[
                 Math.floor(Math.random() * INGREDIENT_TYPES.length)
               ];
-            console.log('round2', ingredientToFall.name);
           }
           result[0] = {
             type: ingredientToFall,
