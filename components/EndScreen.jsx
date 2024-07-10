@@ -1,6 +1,22 @@
 import { View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
 import globalStyleSheet from '../styles'; 
 
+
+function scoreMessage(score) {
+  const SCORE_MESSAGES = [
+    "oof.",
+    "Nice Try!",
+    "Good Seasoning",
+    "Tasty!",
+    "Ready Salted!"
+  ];
+  if(score < 5) return SCORE_MESSAGES[0];
+  if(score < 10) return SCORE_MESSAGES[1];
+  if(score < 15) return SCORE_MESSAGES[2];
+  if(score < 20) return SCORE_MESSAGES[3];
+  return SCORE_MESSAGES[4];
+}
+
 export default function EndScreen({ setIsGameOver, score }) {
   const restartGame = () => {
     setIsGameOver(false);
@@ -10,7 +26,7 @@ export default function EndScreen({ setIsGameOver, score }) {
   };
 
   return <View style={styles.allContainer}>
-    <Text style={styles.endMessage}> Game Over! </Text>
+    <Text style={styles.endMessage}>{scoreMessage(score)}</Text>
     <Text style={styles.scoreMessage}>Your score was:</Text>
     <Text style={styles.scoreNumber}>{score}</Text>
     <View style={styles.buttonsContainer}>
