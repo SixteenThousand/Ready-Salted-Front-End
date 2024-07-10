@@ -27,6 +27,8 @@ const icons = {
   onion: require('../assets/icons/onion.png'),
   chicken: require('../assets/icons/chicken.png'),
   bacon: require('../assets/icons/bacon.png'),
+  vinegar: require('../assets/icons/vinegar.png'),
+  prawn: require('../assets/icons/prawn.png'),
 };
 
 export const Game = () => {
@@ -71,43 +73,33 @@ export const Game = () => {
     {
       name: 'cheese',
       asset: useGLTF(require('../assets/models/Cheese.glb')),
-      scale: 0.2,
+      scale: 0.3,
     },
     {
       name: 'salt',
-      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
+      asset: useGLTF(require('../assets/models/Salt.glb')),
       scale: 2.0,
     },
     {
-      name: 'onion',
-      asset: useGLTF(require('../assets/models/Singleonion.glb')),
-      scale: 0.4,
+      name: 'chicken',
+      asset: useGLTF(require('../assets/models/Chicken.glb')),
+      scale: 0.008,
     },
-    // {
-    //   name: 'prawn',
-    //   asset: useGLTF(require('../assets/models/Shrimp.glb')),
-    //   scale: 0.1,
-    // },
     {
       name: 'bacon',
       asset: useGLTF(require('../assets/models/Bacon.glb')),
-      scale: 0.1,
+      scale: 0.08,
     },
     {
-      name: 'chicken',
-      asset: useGLTF(require('../assets/models/KFC chicken.glb')),
-      scale: 1.0,
+      name: 'vinegar',
+      asset: useGLTF(require('../assets/models/Vinegar.glb')),
+      scale: 0.5,
     },
-    // {
-    //   name: 'Chili',
-    //   asset: useGLTF(require('../assets/models/Chili Pepper.glb')),
-    //   scale: 0.1,
-    // },
-    // {
-    //   name: 'Tomato',
-    //   asset: useGLTF(require('../assets/models/Tomato.glb')),
-    //   scale: 0.6,
-    // },
+    {
+      name: 'prawn',
+      asset: useGLTF(require('../assets/models/Prawn.glb')),
+      scale: 0.1,
+    },
   ];
   const [currentType, setCurrentType] = useState(
     INGREDIENT_TYPES[Math.floor(Math.random() * INGREDIENT_TYPES.length)]
@@ -176,6 +168,16 @@ export const Game = () => {
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
+        <Text style={styles.highScore}>Score: {score}</Text>
+
+        <View style={styles.hintContainter}>
+          <View style={styles.hint}>
+            <ImageBackground
+              source={icons[currentType.name]}
+              style={styles.hintIcon}
+            />
+          </View>
+        </View>
         <View style={styles.gameInfoContainer}>
           <Timer
             totalGameTime={TOTAL_GAME_TIME}
@@ -257,6 +259,24 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     gap: 10,
+  },
+  hintContainter: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+  },
+  hint: {
+    width: 80,
+    height: 80,
+    backgroundColor: 'white',
+    borderRadius: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+  },
+  hintIcon: {
+    width: 55,
+    height: 55,
   },
   white: {
     width: 50,

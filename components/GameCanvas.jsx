@@ -78,13 +78,22 @@ export default function GameCanvas(props) {
     if (clock.getElapsedTime() > timeOfNextDrop.current) {
       timeOfNextDrop.current += 2.5;
       numDrops.current++;
-      if (numDrops.current % 5 !== 0)
+      if (numDrops.current % 6 !== 0)
         setFallingIngredientsInfo((currentIngredientsInfo) => {
           const result = [...currentIngredientsInfo];
+          let ingredientToFall;
+          if (Math.random() < 0.25) {
+            ingredientToFall = currentType;
+            console.log('round1', ingredientToFall.name);
+          } else {
+            ingredientToFall =
+              INGREDIENT_TYPES[
+                Math.floor(Math.random() * INGREDIENT_TYPES.length)
+              ];
+            console.log('round2', ingredientToFall.name);
+          }
           result[0] = {
-            type: INGREDIENT_TYPES[
-              Math.floor(Math.random() * INGREDIENT_TYPES.length)
-            ],
+            type: ingredientToFall,
             position: dots[Math.floor(Math.random() * dots.length)],
             fallingStatus: 1,
           };
@@ -121,32 +130,33 @@ export default function GameCanvas(props) {
             position-x={animatedCrispX}
             position-z={animatedCrispZ}
           >
-            <Crisp />
+            <Crisp currentType={currentType} />
           </animated.group>
         </Float>
         {/* <Ingredient onHit={handleIngredientHit} dots={dots} /> */}
+
+        {fallingIngredientsInfo[0] ? (
+          <Ingredient
+            type={fallingIngredientsInfo[0].type}
+            gridX={fallingIngredientsInfo[0].position[0]}
+            gridZ={fallingIngredientsInfo[0].position[1]}
+            onHit={bagCatch(0)}
+            fallingStatus={fallingIngredientsInfo[0].fallingStatus}
+          />
+        ) : null}
+        {isHandActive ? (
+          <Hand
+            handX={handX}
+            setHandX={setHandX}
+            handZ={handZ}
+            setHandZ={setHandZ}
+            crispX={animatedCrispX}
+            crispZ={animatedCrispZ}
+            setIsHandActive={setIsHandActive}
+            handCatch={handCatch}
+          />
+        ) : null}
       </Suspense>
-      {fallingIngredientsInfo[0] ? (
-        <Ingredient
-          type={fallingIngredientsInfo[0].type}
-          gridX={fallingIngredientsInfo[0].position[0]}
-          gridZ={fallingIngredientsInfo[0].position[1]}
-          onHit={bagCatch(0)}
-          fallingStatus={fallingIngredientsInfo[0].fallingStatus}
-        />
-      ) : null}
-      {isHandActive ? (
-        <Hand
-          handX={handX}
-          setHandX={setHandX}
-          handZ={handZ}
-          setHandZ={setHandZ}
-          crispX={animatedCrispX}
-          crispZ={animatedCrispZ}
-          setIsHandActive={setIsHandActive}
-          handCatch={handCatch}
-        />
-      ) : null}
       <gridHelper args={[4, 2, 'white', 'white']} />
       {dots.map((dot, index) => {
         return (

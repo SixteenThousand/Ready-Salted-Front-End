@@ -14,7 +14,7 @@ export default function Hand(props) {
     setIsHandActive,
     handCatch,
   } = props;
-  const { nodes, materials } = useGLTF(require('../../assets/models/hand.glb'));
+  const { nodes, materials } = useGLTF(require('../../assets/models/Hand.glb'));
   materials.lambert2SG.opacity = 1;
   const [handY, setHandY] = useState(null);
   let isHit = false;
