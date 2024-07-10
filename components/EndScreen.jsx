@@ -1,9 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
 import globalStyleSheet from '../styles'; 
 import { useNavigation } from '@react-navigation/native';
+import { useContext } from 'react';
+import { UserContext } from '../context/userProvider';
+import { updateUserbyUsername, getUserByUsername } from '../api/api';
 
 
 function scoreMessage(score) {
+  const { user, setUser } = useContext(UserContext);
   const SCORE_MESSAGES = [
     "oof.",
     "Nice Try!",
@@ -11,6 +15,16 @@ function scoreMessage(score) {
     "Tasty!",
     "Ready Salted!"
   ];
+  if(score >= user.score) {
+    updateUserbyUsername(user.username,{
+      score: score,
+    }).then(() => {
+      getUserByUsername(user.username).then((result) => {
+        setUser(result);
+      });
+    });
+    return "New Personal Best!";
+  }
   if(score < 5) return SCORE_MESSAGES[0];
   if(score < 10) return SCORE_MESSAGES[1];
   if(score < 15) return SCORE_MESSAGES[2];

@@ -29,7 +29,7 @@ const icons = {
 };
 
 export const Game = () => {
-  const TOTAL_GAME_TIME = 5; // measured in seconds
+  const TOTAL_GAME_TIME = 60; // measured in seconds
   const [isGameOver, setIsGameOver] = useState(false);
   const [crispX, setCrispX] = useState(0);
   const [crispZ, setCrispZ] = useState(0);
