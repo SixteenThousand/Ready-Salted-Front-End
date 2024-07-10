@@ -19,5 +19,7 @@ const crispModel = (type) => {
       return require('../../assets/models/Baconcrisps.glb');
     case 'vinegar':
       return require('../../assets/models/Salt&Vinegarcrisps.glb');
+    case 'prawn':
+      return require('../../assets/models/Prawscrisps.glb');
   }
 };

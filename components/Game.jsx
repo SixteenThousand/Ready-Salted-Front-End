@@ -25,6 +25,7 @@ const icons = {
   chicken: require('../assets/icons/chicken.png'),
   bacon: require('../assets/icons/bacon.png'),
   vinegar: require('../assets/icons/vinegar.png'),
+  prawn: require('../assets/icons/prawn.png'),
 };
 
 export const Game = () => {
@@ -49,15 +50,20 @@ export const Game = () => {
     //   asset: useGLTF(require('../assets/models/chicken.glb')),
     //   scale: 0.008,
     // },
-    {
-      name: 'bacon',
-      asset: useGLTF(require('../assets/models/bacon.glb')),
-      scale: 0.08,
-    },
+    // {
+    //   name: 'bacon',
+    //   asset: useGLTF(require('../assets/models/bacon.glb')),
+    //   scale: 0.08,
+    // },
     {
       name: 'vinegar',
       asset: useGLTF(require('../assets/models/vinegar.glb')),
       scale: 0.5,
+    },
+    {
+      name: 'prawn',
+      asset: useGLTF(require('../assets/models/prawn.glb')),
+      scale: 0.1,
     },
   ];
   const [currentType, setCurrentType] = useState(
