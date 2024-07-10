@@ -81,10 +81,19 @@ export default function GameCanvas(props) {
       if (numDrops.current % 6 !== 0)
         setFallingIngredientsInfo((currentIngredientsInfo) => {
           const result = [...currentIngredientsInfo];
+          let ingredientToFall;
+          if (Math.random() < 0.5) {
+            ingredientToFall = currentType;
+            console.log('round1', ingredientToFall.name);
+          } else {
+            ingredientToFall =
+              INGREDIENT_TYPES[
+                Math.floor(Math.random() * INGREDIENT_TYPES.length)
+              ];
+            console.log('round2', ingredientToFall.name);
+          }
           result[0] = {
-            type: INGREDIENT_TYPES[
-              Math.floor(Math.random() * INGREDIENT_TYPES.length)
-            ],
+            type: ingredientToFall,
             position: dots[Math.floor(Math.random() * dots.length)],
             fallingStatus: 1,
           };
