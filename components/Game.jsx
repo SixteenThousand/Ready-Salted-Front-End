@@ -5,22 +5,16 @@ import {
   Text,
   View,
 } from 'react-native';
-import { Canvas } from '@react-three/fiber/native';
-import { useState, useEffect, Suspense } from 'react';
-import { Float } from '@react-three/drei';
-import { useGLTF } from '@react-three/drei/native';
+import { useState } from 'react';
 import {
   GestureHandlerRootView,
   Gesture,
   GestureDetector,
 } from 'react-native-gesture-handler';
-import Crisp from './3dModel/Crisp';
-import Hand from './3dModel/Hand';
-import Ingredient from './3dModel/Ingredient';
-import { animated, useSpring } from '@react-spring/three';
-
-
-
+import { useGLTF } from '@react-three/drei/native';
+import { Canvas } from '@react-three/fiber/native';
+import GameCanvas from './GameCanvas';
+import { playSound } from './playSound';
 
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
 
@@ -35,32 +29,34 @@ const icons = {
 export const Game = () => {
   const [crispX, setCrispX] = useState(0);
   const [crispZ, setCrispZ] = useState(0);
-  const { animatedCrispX } = useSpring({ animatedCrispX: crispX });
-  const { animatedCrispZ } = useSpring({ animatedCrispZ: crispZ });
   const [touchDownX, setTouchDownX] = useState(0);
   const [touchDownY, setTouchDownY] = useState(0);
-  const [isHandActive, setIsHandActive] = useState(false);
-  const [handX, setHandX] = useState(null);
-  const [handZ, setHandZ] = useState(null);
   const [contents, setContents] = useState([null, null, null, null, null]);
-  const contentTypes = ['salt', 'cheese', 'onion', 'chicken', 'bacon'];
+  const INGREDIENT_TYPES = [
+    {
+      name: 'cheese',
+      asset: useGLTF(require('../assets/models/Cheese.glb')),
+      scale: 0.2,
+    },
+    {
+      name: 'salt',
+      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
+      scale: 2.0,
+    },
+    // {
+    //   name: 'onion',
+    // },
+    // {
+    //   name: 'chicken',
+    // },
+    // {
+    //   name: 'bacon',
+    // },
+  ];
   const [currentType, setCurrentType] = useState(
-    contentTypes[Math.floor(Math.random() * 5)]
+    INGREDIENT_TYPES[Math.floor(Math.random() * INGREDIENT_TYPES.length)]
   );
   const [score, setScore] = useState(0);
-
-
-  const dots = [
-    [2, 2],
-    [2, 0],
-    [2, -2],
-    [0, 2],
-    [0, 0],
-    [0, -2],
-    [-2, 2],
-    [-2, 0],
-    [-2, -2],
-  ];
 
   const pan = Gesture.Pan()
     .runOnJS(true)
@@ -73,21 +69,6 @@ export const Game = () => {
     .onTouchesCancelled((e) => {
       moveCrisp(e, 'cancel');
     });
-  
-  // falling ingredient management
-  const INGREDIENT_TYPES = [
-    {
-      name: "cheese",
-      asset: useGLTF(require('../assets/models/Cheese.glb')),
-      scale: 0.3,
-    },
-    {
-      name: 'salt',
-      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
-      scale: 1.0,
-    }
-  ];
-
 
   const longPress = Gesture.LongPress()
     .runOnJS(true)
@@ -117,38 +98,23 @@ export const Game = () => {
       setCrispZ(crispZ + 2);
   };
 
-  const addContent = () => {
-    for (let i = 0; i < contents.length; i++)
-      if (!contents[i]) {
-        const newContents = [...contents];
-        newContents[i] = contentTypes[Math.floor(Math.random() * 5)];
-        setContents(newContents);
-        break;
-      }
-  };
-
   const emptyContents = () => {
     setContents([null, null, null, null, null]);
   };
 
-  const activateHand = () => {
-    setHandX(Math.floor(Math.random() * 3) * 2 - 2);
-    setHandZ(Math.floor(Math.random() * 3) * 2 - 2);
-    setIsHandActive(true);
-  };
-
-  const handHitHandler = () => {
-    emptyContents();
+  const handCatch = () => {
+    playSound(require('../assets/SoundEffects/score.mp3'));
     let newScore = 0;
     for (let i = 0; i < contents.length; i++)
-      if (contents[i] === currentType) newScore++;
+      if (contents[i] === currentType.name) newScore++;
     setScore((score) => score + newScore);
+    emptyContents();
   };
 
   const iconColor = (content) => {
     if (!content) return styles.white;
-    if (content === currentType) return styles.green;
-    if (content !== currentType) return styles.red;
+    if (content === currentType.name) return styles.green;
+    if (content !== currentType.name) return styles.red;
   };
 
   return (
@@ -165,52 +131,16 @@ export const Game = () => {
           })}
         </View>
         <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
-          <Canvas camera={{ position: [0, 2, 7], rotation: [0, 0, 0] }}>
-            {/* <Canvas
-            camera={{ position: [0, 10, 0], rotation: [-Math.PI / 2, 0, 0] }}
-          > */}
-            <directionalLight position={[1, 0, 0]} args={['white', 2]} />
-            <directionalLight position={[-1, 0, 0]} args={['white', 2]} />
-            <directionalLight position={[0, 0, 1]} args={['white', 2]} />
-            <directionalLight position={[0, 0, -1]} args={['white', 2]} />
-            <directionalLight position={[0, 1, 0]} args={['white', 15]} />
-            <directionalLight position={[0, -1, 0]} args={['white', 2]} />
-            <Suspense fallback={null}>
-              <Float floatIntensity={3} speed={2}>
-                <animated.group
-                  position-x={animatedCrispX}
-                  position-z={animatedCrispZ}
-                >
-                  <Crisp />
-                </animated.group>
-              </Float>
-              {/* <Ingredient onHit={handleIngredientHit} dots={dots} /> */}
-            </Suspense>
-            {isHandActive ? (
-              <Hand
-                handX={handX}
-                handZ={handZ}
-                crispX={animatedCrispX}
-                crispZ={animatedCrispZ}
-                setIsHandActive={setIsHandActive}
-                handHitHandler={handHitHandler}
-              />
-            ) : null}
-            <gridHelper args={[4, 2, 'white', 'white']} />
-            {dots.map((dot, index) => {
-              return (
-                <mesh key={index} position={[dot[0], 0, dot[1]]}>
-                  <sphereGeometry args={[0.05]} />
-                  <meshStandardMaterial
-                    color={
-                      dot[0] === handX && dot[1] === handZ && isHandActive
-                        ? 'black'
-                        : 'white'
-                    }
-                  />
-                </mesh>
-              );
-            })}
+          <Canvas camera={{ position: [0, 2, 8], rotation: [0, 0, 0] }}>
+            <GameCanvas
+              crispX={crispX}
+              crispZ={crispZ}
+              handCatch={handCatch}
+              contents={contents}
+              setContents={setContents}
+              currentType={currentType}
+              INGREDIENT_TYPES={INGREDIENT_TYPES}
+            />
           </Canvas>
         </GestureDetector>
       </ImageBackground>

@@ -3,6 +3,7 @@ node_modules/
 dist/
 npm-debug.*
 web-build/
+.idea/
 
 # macOS
 .DS_Store
