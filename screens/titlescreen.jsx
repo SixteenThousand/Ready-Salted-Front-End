@@ -1,38 +1,52 @@
+import React, { useEffect, useRef, useState } from "react";
 import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
-import React from "react";
-import styles from "../styles";
 import { Audio } from "expo-av";
-import { useEffect } from "react";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
+import styles from "../styles";
 
-export default function TitleScreen({ navigation }) {
-  useEffect(() => {
-    let sound = new Audio.Sound();
+const TitleScreen = () => {
+  const sound = useRef(new Audio.Sound()).current;
+  const [isPlaying, setIsPlaying] = useState(false);
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
-    async function playSound() {
-      try {
-        await sound.loadAsync(require("../assets/MP3/Paradise_Found.mp3"));
-
-        sound.setOnPlaybackStatusUpdate((status) => {
-          if (status.didJustFinish) {
-            sound.replayAsync();
-          }
-        });
-
-        await sound.playAsync();
-      } catch (error) {
-        console.log("Failed to play the sound", error);
-      }
+  const setupAudio = async () => {
+    try {
+      await sound.loadAsync(require("../assets/MP3/Paradise_Found.mp3"));
+      await sound.playAsync();
+      setIsPlaying(true);
+    } catch (error) {
+      console.log("Failed to play the sound", error);
     }
+  };
 
-    playSound();
-
-    return () => {
-      if (sound) {
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', () => {
+      if (isPlaying) {
         sound.stopAsync();
         sound.unloadAsync();
+        setIsPlaying(false);
       }
-    };
-  }, []);
+    });
+
+    return unsubscribe;
+  }, [navigation, isPlaying]);
+
+  useEffect(() => {
+    if (isFocused && !isPlaying) {
+      setupAudio();
+    }
+  }, [isFocused]);
+
+  const handleGameNavigation = async () => {
+    if (isPlaying) {
+      await sound.stopAsync();
+      await sound.unloadAsync();
+      setIsPlaying(false);
+    }
+    navigation.navigate("game");
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -42,7 +56,7 @@ export default function TitleScreen({ navigation }) {
       >
         <TouchableOpacity
           style={styles.ButtonStart}
-          onPress={() => navigation.navigate("game")}
+          onPress={handleGameNavigation}
         >
           <Text style={styles.ButtonTextStart}>Start Game</Text>
         </TouchableOpacity>
@@ -77,4 +91,6 @@ export default function TitleScreen({ navigation }) {
       </ImageBackground>
     </View>
   );
-}
+};
+
+export default TitleScreen;
