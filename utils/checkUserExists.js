@@ -35,7 +35,7 @@ export const validateUserDetails = (username, email, password) => {
       return false;
     }
     else if(!passwordRegex.test(password)){
-      alert('Password format invalid. Passwords should be a minimum of 8 characters, and contain at least one uppercase character, one lowercase, a number and a special character')
+      alert('Password format invalid. Passwords should be a minimum of 8 characters, and contain at least one uppercase character, one lowercase, a number and a special character(@$!%*?&)')
       return false;
     }
     else{return true}
