@@ -76,7 +76,7 @@ export default function GameCanvas(props) {
 
   useFrame(({ clock }) => {
     if (clock.getElapsedTime() > timeOfNextDrop.current) {
-      timeOfNextDrop.current += 3;
+      timeOfNextDrop.current += 2.5;
       numDrops.current++;
       if (numDrops.current % 6 !== 0)
         setFallingIngredientsInfo((currentIngredientsInfo) => {
