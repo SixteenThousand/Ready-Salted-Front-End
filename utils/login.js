@@ -8,10 +8,15 @@ export const login = (username, password) => {
             userObj = {...user}
             return checkPassword(username, password)
         }
-        else return false
+        else {
+            return false;
+        }
     })
     .then((result) => {
         if(result){return userObj}
-        else return false
+        else {
+            alert('Incorrect login, please try again');
+            return false;
+        }
     })
 }
