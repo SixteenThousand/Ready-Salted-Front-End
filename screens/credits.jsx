@@ -34,7 +34,7 @@ const CreditsScreen = ({ navigation }) => {
             - Hands by Michael Fuchs [CC-BY] via Poly Pizza
           </Text>
           <Text style={localStyles.attributionItem}>
-            - Soundtrack by ...
+            - Soundtrack: "Paradise Found" Kevin MacLeod (incompetech.com)
           </Text>
         </View>
       </View>

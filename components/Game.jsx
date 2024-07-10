@@ -43,14 +43,35 @@ export const Game = () => {
       asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
       scale: 2.0,
     },
+    {
+      name: 'onion',
+      asset: useGLTF(require('../assets/models/Singleonion.glb')),
+      scale: 0.4,
+    },
     // {
-    //   name: 'onion',
+    //   name: 'prawn',
+    //   asset: useGLTF(require('../assets/models/Shrimp.glb')),
+    //   scale: 0.1,
+    // },
+    {
+      name: 'bacon',
+      asset: useGLTF(require('../assets/models/Bacon.glb')),
+      scale: 0.1,
+    },
+    {
+      name: 'chicken',
+      asset: useGLTF(require('../assets/models/KFC chicken.glb')),
+      scale: 1.0,
+    },
+    // {
+    //   name: 'Chili',
+    //   asset: useGLTF(require('../assets/models/Chili Pepper.glb')),
+    //   scale: 0.1,
     // },
     // {
-    //   name: 'chicken',
-    // },
-    // {
-    //   name: 'bacon',
+    //   name: 'Tomato',
+    //   asset: useGLTF(require('../assets/models/Tomato.glb')),
+    //   scale: 0.6,
     // },
   ];
   const [currentType, setCurrentType] = useState(
