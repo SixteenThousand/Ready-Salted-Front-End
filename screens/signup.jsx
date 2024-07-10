@@ -7,59 +7,47 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import styles from "../styles";
+import { UserContext } from "../context/userProvider";
 import { useForm, Controller } from "react-hook-form";
-import { postNewUser, getUserByUsername, getUserByEmail } from "../api/api";
+import { getUserByUsername, postNewUser } from "../api/api";
+import { checkUserExists, validateUserDetails } from "../utils/checkUserExists";
 
-
-const SimpleForm = () => {
+const SimpleForm = ({ navigation }) => {
   const { control, handleSubmit } = useForm();
-
+  const { setUser } = useContext(UserContext);
   
 
-  const checkUserExists = (email, username) => {
-
-    let userExists;
-    let emailExists;
-
-    return getUserByUsername(username)
-    .then((user) => {
-      userExists = user ? true : false;
-    })
-    .then(() => {
-      return getUserByEmail(email);
-    })
-    .then((user) => {
-      emailExists = user ? true : false;
-    })
-    .then(() => {
-      return {userExists, emailExists}
-    })
-    .catch((err) => {console.log(err)})
-  };
-  
   const onSubmit = ({ username, email, password }) => {
-    return checkUserExists(email, username)
-      .then(({ emailExists, usernameExists }) => {
-        if (emailExists) {
-          alert('Email already in use. Please use a different email.');
-          return Promise.reject('Email already in use');
-        } else if (usernameExists) {
-          alert('Username already in use. Please use a different username.');
-          return Promise.reject('Username already in use');
-        } else {
-          return postNewUser(username, email, password);
-        }
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        if (error !== 'Email already in use' && error !== 'Username already in use') {
-          console.error('Error submitting form:', error);
-        }
-      });
+    if(validateUserDetails(email, password)){
+      return checkUserExists(email, username)
+        .then(({ emailExists, usernameExists }) => {
+          if (emailExists) {
+            alert('Email already in use. Please use a different email.');
+            return Promise.reject('Email already in use');
+          } else if (usernameExists) {
+            alert('Username already in use. Please use a different username.');
+            return Promise.reject('Username already in use');
+          } else {
+            return postNewUser(username, email, password);
+          }
+        })
+        .then((data) => {
+          console.log(data)
+          return getUserByUsername(username)
+        })
+        .then((user) => {
+          console.log(user)
+          setUser(user)
+          navigation.navigate("title")
+        })
+        .catch((error) => {
+          if (error !== 'Email already in use' && error !== 'Username already in use') {
+            console.error('Error submitting form:', error);
+          }
+        });
+      }
   };
 
   return (
