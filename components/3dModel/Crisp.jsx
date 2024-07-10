@@ -11,11 +11,11 @@ const crispModel = (type) => {
     case 'salt':
       return require('../../assets/models/SaltCrisps.glb');
     case 'cheese':
-      return require('../../assets/models/CheeseCrisps.glb');
+      return require('../../assets/models/Cheesecrisps.glb');
     case 'chicken':
-      return require('../../assets/models/ChickenCrisps.glb');
+      return require('../../assets/models/Chickencrisps.glb');
     case 'bacon':
-      return require('../../assets/models/BaconCrisps.glb');
+      return require('../../assets/models/Baconcrisps.glb');
     case 'vinegar':
       return require('../../assets/models/VinegarCrisps.glb');
     case 'prawn':

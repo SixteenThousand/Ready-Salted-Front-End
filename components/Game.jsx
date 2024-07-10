@@ -82,22 +82,22 @@ export const Game = () => {
     },
     {
       name: 'chicken',
-      asset: useGLTF(require('../assets/models/Chicken.glb')),
+      asset: useGLTF(require('../assets/models/chicken.glb')),
       scale: 0.008,
     },
     {
       name: 'bacon',
-      asset: useGLTF(require('../assets/models/Bacon.glb')),
+      asset: useGLTF(require('../assets/models/bacon.glb')),
       scale: 0.08,
     },
     {
       name: 'vinegar',
-      asset: useGLTF(require('../assets/models/Vinegar.glb')),
+      asset: useGLTF(require('../assets/models/vinegar.glb')),
       scale: 0.5,
     },
     {
       name: 'prawn',
-      asset: useGLTF(require('../assets/models/Prawn.glb')),
+      asset: useGLTF(require('../assets/models/prawn.glb')),
       scale: 0.1,
     },
   ];
