@@ -10,16 +10,16 @@ export default function Hand({ currentType }) {
 const crispModel = (type) => {
   switch (type) {
     case 'salt':
-      return require('../../assets/models/Readysaltedcrisps.glb');
+      return require('../../assets/models/SaltCrisps.glb');
     case 'cheese':
-      return require('../../assets/models/Cheesecrisps.glb');
+      return require('../../assets/models/CheeseCrisps.glb');
     case 'chicken':
-      return require('../../assets/models/Chickencrisps.glb');
+      return require('../../assets/models/ChickenCrisps.glb');
     case 'bacon':
-      return require('../../assets/models/Baconcrisps.glb');
+      return require('../../assets/models/BaconCrisps.glb');
     case 'vinegar':
-      return require('../../assets/models/Salt&Vinegarcrisps.glb');
+      return require('../../assets/models/VinegarCrisps.glb');
     case 'prawn':
-      return require('../../assets/models/Prawscrisps.glb');
+      return require('../../assets/models/PrawnCrisps.glb');
   }
 };

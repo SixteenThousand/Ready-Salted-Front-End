@@ -42,27 +42,27 @@ export const Game = () => {
     },
     {
       name: 'salt',
-      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
+      asset: useGLTF(require('../assets/models/Salt.glb')),
       scale: 2.0,
     },
     {
       name: 'chicken',
-      asset: useGLTF(require('../assets/models/chicken.glb')),
+      asset: useGLTF(require('../assets/models/Chicken.glb')),
       scale: 0.008,
     },
     {
       name: 'bacon',
-      asset: useGLTF(require('../assets/models/bacon.glb')),
+      asset: useGLTF(require('../assets/models/Bacon.glb')),
       scale: 0.08,
     },
     {
       name: 'vinegar',
-      asset: useGLTF(require('../assets/models/vinegar.glb')),
+      asset: useGLTF(require('../assets/models/Vinegar.glb')),
       scale: 0.5,
     },
     {
       name: 'prawn',
-      asset: useGLTF(require('../assets/models/prawn.glb')),
+      asset: useGLTF(require('../assets/models/Prawn.glb')),
       scale: 0.1,
     },
   ];
