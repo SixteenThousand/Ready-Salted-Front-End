@@ -20,7 +20,7 @@ const SimpleForm = ({ navigation }) => {
   
 
   const onSubmit = ({ username, email, password }) => {
-    if(validateUserDetails(email, password)){
+    if(validateUserDetails(username, email, password)){
       return checkUserExists(email, username)
         .then(({ emailExists, usernameExists }) => {
           if (emailExists) {
