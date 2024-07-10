@@ -17,7 +17,7 @@ import GameCanvas from './GameCanvas';
 import EndScreen from './EndScreen';
 import Timer from './Timer';
 import { playSound } from './playSound';
-import { Audio } from "expo-av";
+import { Audio } from 'expo-av';
 
 const backgroundImage = require('../assets/images/3d-rendering-cartoon-welcome-door.jpg');
 
@@ -29,6 +29,7 @@ const icons = {
   bacon: require('../assets/icons/bacon.png'),
   vinegar: require('../assets/icons/vinegar.png'),
   prawn: require('../assets/icons/prawn.png'),
+  blank: require('../assets/icons/blank.png'),
 };
 
 export const Game = () => {
@@ -38,7 +39,7 @@ export const Game = () => {
 
     async function playSound() {
       try {
-        await sound.loadAsync(require("../assets/MP3/Galactic Rap.mp3"));
+        await sound.loadAsync(require('../assets/MP3/Galactic Rap.mp3'));
 
         sound.setOnPlaybackStatusUpdate((status) => {
           if (status.didJustFinish) {
@@ -48,7 +49,7 @@ export const Game = () => {
 
         await sound.playAsync();
       } catch (error) {
-        console.log("Failed to play the sound", error);
+        console.log('Failed to play the sound', error);
       }
     }
 
@@ -61,7 +62,7 @@ export const Game = () => {
       }
     };
   }, []);
-  
+
   const TOTAL_GAME_TIME = 2 * 60; // measured in seconds
   const [isGameOver, setIsGameOver] = useState(false);
   const [crispX, setCrispX] = useState(0);
@@ -165,10 +166,16 @@ export const Game = () => {
     if (content !== currentType.name) return styles.red;
   };
 
+  const icon = (content) => {
+    if (!content) {
+      return icons.blank;
+    }
+    if (content) return icons[content];
+  };
+
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
-
         <View style={styles.hintContainter}>
           <View style={styles.hint}>
             <ImageBackground
@@ -189,30 +196,28 @@ export const Game = () => {
           {contents.map((content, index) => {
             return (
               <View key={index} style={iconColor(content)}>
-                <ImageBackground source={icons[content]} style={styles.icon} />
+                <ImageBackground source={icon(content)} style={styles.icon} />
               </View>
             );
           })}
         </View>
-          {isGameOver ?
-            <EndScreen
-              score={score}
-            />
-          :
-            <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
-              <Canvas camera={{ position: [0, 2, 8], rotation: [0, 0, 0] }}>
-                <GameCanvas
-                  crispX={crispX}
-                  crispZ={crispZ}
-                  handCatch={handCatch}
-                  contents={contents}
-                  setContents={setContents}
-                  currentType={currentType}
-                  INGREDIENT_TYPES={INGREDIENT_TYPES}
-                />
-              </Canvas>
-            </GestureDetector>
-          }
+        {isGameOver ? (
+          <EndScreen score={score} />
+        ) : (
+          <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
+            <Canvas camera={{ position: [0, 2, 8], rotation: [0, 0, 0] }}>
+              <GameCanvas
+                crispX={crispX}
+                crispZ={crispZ}
+                handCatch={handCatch}
+                contents={contents}
+                setContents={setContents}
+                currentType={currentType}
+                INGREDIENT_TYPES={INGREDIENT_TYPES}
+              />
+            </Canvas>
+          </GestureDetector>
+        )}
       </ImageBackground>
     </GestureHandlerRootView>
   );
