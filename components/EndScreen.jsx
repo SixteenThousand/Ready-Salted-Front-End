@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
 import globalStyleSheet from '../styles'; 
+import { useNavigation } from '@react-navigation/native';
 
 
 function scoreMessage(score) {
@@ -17,35 +18,27 @@ function scoreMessage(score) {
   return SCORE_MESSAGES[4];
 }
 
-export default function EndScreen({ setIsGameOver, score }) {
-  const restartGame = () => {
-    setIsGameOver(false);
-  };
+export default function EndScreen({ score, }) {
+  const navigation = useNavigation();
   const exitGame = () => {
-    // don't know what to do here yet
+    navigation.navigate('title');
   };
-
+  
   return <View style={styles.allContainer}>
     <Text style={styles.endMessage}>{scoreMessage(score)}</Text>
     <Text style={styles.scoreMessage}>Your score was:</Text>
     <Text style={styles.scoreNumber}>{score}</Text>
-    <View style={styles.buttonsContainer}>
-      <TouchableOpacity style={globalStyleSheet.Button2} onPress={restartGame}>
-        <Text style={styles.buttonText}>New Game</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={globalStyleSheet.Button2} onPress={exitGame}>
-        <Text style={styles.buttonText}>Exit</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={globalStyleSheet.Button2}
+      onPress={exitGame}
+    >
+      <Text style={styles.buttonText}>Back To Menu</Text>
+    </TouchableOpacity>
   </View>;
 }
 
 
 const styles = StyleSheet.create({
-  buttonsContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
   allContainer: {
     backgroundColor: 0x00aaaabb,
     display: 'flex',

@@ -29,7 +29,7 @@ const icons = {
 };
 
 export const Game = () => {
-  const TOTAL_GAME_TIME = 5 * 60; // measured in seconds
+  const TOTAL_GAME_TIME = 5; // measured in seconds
   const [isGameOver, setIsGameOver] = useState(false);
   const [crispX, setCrispX] = useState(0);
   const [crispZ, setCrispZ] = useState(0);
@@ -121,11 +121,6 @@ export const Game = () => {
     if (content !== currentType.name) return styles.red;
   };
 
-  // {timeLeft > 0 ?
-  //   <View>
-  //     <Text>Game Over!</Text>
-  //   </View>
-  //     :
   return (
     <GestureHandlerRootView style={styles.canvas}>
       <ImageBackground source={backgroundImage} style={styles.image}>
@@ -146,23 +141,25 @@ export const Game = () => {
             );
           })}
         </View>
-        <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
           {isGameOver ?
-            <EndScreen setIsGameOver={setIsGameOver} />
+            <EndScreen
+              score={score}
+            />
           :
-            <Canvas camera={{ position: [0, 2, 8], rotation: [0, 0, 0] }}>
-              <GameCanvas
-                crispX={crispX}
-                crispZ={crispZ}
-                handCatch={handCatch}
-                contents={contents}
-                setContents={setContents}
-                currentType={currentType}
-                INGREDIENT_TYPES={INGREDIENT_TYPES}
-              />
-            </Canvas>
+            <GestureDetector gesture={Platform.OS === 'ios' ? pan : longPress}>
+              <Canvas camera={{ position: [0, 2, 8], rotation: [0, 0, 0] }}>
+                <GameCanvas
+                  crispX={crispX}
+                  crispZ={crispZ}
+                  handCatch={handCatch}
+                  contents={contents}
+                  setContents={setContents}
+                  currentType={currentType}
+                  INGREDIENT_TYPES={INGREDIENT_TYPES}
+                />
+              </Canvas>
+            </GestureDetector>
           }
-        </GestureDetector>
       </ImageBackground>
     </GestureHandlerRootView>
   );
