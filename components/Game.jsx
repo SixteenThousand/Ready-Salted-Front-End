@@ -24,6 +24,7 @@ const icons = {
   onion: require('../assets/icons/onion.png'),
   chicken: require('../assets/icons/chicken.png'),
   bacon: require('../assets/icons/bacon.png'),
+  vinegar: require('../assets/icons/vinegar.png'),
 };
 
 export const Game = () => {
@@ -33,25 +34,31 @@ export const Game = () => {
   const [touchDownY, setTouchDownY] = useState(0);
   const [contents, setContents] = useState([null, null, null, null, null]);
   const INGREDIENT_TYPES = [
-    {
-      name: 'cheese',
-      asset: useGLTF(require('../assets/models/Cheese.glb')),
-      scale: 0.2,
-    },
-    {
-      name: 'salt',
-      asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
-      scale: 2.0,
-    },
     // {
-    //   name: 'onion',
+    //   name: 'cheese',
+    //   asset: useGLTF(require('../assets/models/Cheese.glb')),
+    //   scale: 0.3,
+    // },
+    // {
+    //   name: 'salt',
+    //   asset: useGLTF(require('../assets/models/Salt_Shaker.glb')),
+    //   scale: 2.0,
     // },
     // {
     //   name: 'chicken',
+    //   asset: useGLTF(require('../assets/models/chicken.glb')),
+    //   scale: 0.008,
     // },
-    // {
-    //   name: 'bacon',
-    // },
+    {
+      name: 'bacon',
+      asset: useGLTF(require('../assets/models/bacon.glb')),
+      scale: 0.08,
+    },
+    {
+      name: 'vinegar',
+      asset: useGLTF(require('../assets/models/vinegar.glb')),
+      scale: 0.5,
+    },
   ];
   const [currentType, setCurrentType] = useState(
     INGREDIENT_TYPES[Math.floor(Math.random() * INGREDIENT_TYPES.length)]

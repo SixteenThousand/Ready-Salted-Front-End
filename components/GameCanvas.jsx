@@ -121,32 +121,33 @@ export default function GameCanvas(props) {
             position-x={animatedCrispX}
             position-z={animatedCrispZ}
           >
-            <Crisp />
+            <Crisp currentType={currentType}/>
           </animated.group>
         </Float>
         {/* <Ingredient onHit={handleIngredientHit} dots={dots} /> */}
+
+        {fallingIngredientsInfo[0] ? (
+          <Ingredient
+            type={fallingIngredientsInfo[0].type}
+            gridX={fallingIngredientsInfo[0].position[0]}
+            gridZ={fallingIngredientsInfo[0].position[1]}
+            onHit={bagCatch(0)}
+            fallingStatus={fallingIngredientsInfo[0].fallingStatus}
+          />
+        ) : null}
+        {isHandActive ? (
+          <Hand
+            handX={handX}
+            setHandX={setHandX}
+            handZ={handZ}
+            setHandZ={setHandZ}
+            crispX={animatedCrispX}
+            crispZ={animatedCrispZ}
+            setIsHandActive={setIsHandActive}
+            handCatch={handCatch}
+          />
+        ) : null}
       </Suspense>
-      {fallingIngredientsInfo[0] ? (
-        <Ingredient
-          type={fallingIngredientsInfo[0].type}
-          gridX={fallingIngredientsInfo[0].position[0]}
-          gridZ={fallingIngredientsInfo[0].position[1]}
-          onHit={bagCatch(0)}
-          fallingStatus={fallingIngredientsInfo[0].fallingStatus}
-        />
-      ) : null}
-      {isHandActive ? (
-        <Hand
-          handX={handX}
-          setHandX={setHandX}
-          handZ={handZ}
-          setHandZ={setHandZ}
-          crispX={animatedCrispX}
-          crispZ={animatedCrispZ}
-          setIsHandActive={setIsHandActive}
-          handCatch={handCatch}
-        />
-      ) : null}
       <gridHelper args={[4, 2, 'white', 'white']} />
       {dots.map((dot, index) => {
         return (
