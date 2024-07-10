@@ -7,7 +7,7 @@ function formatTime(time) {
   }
   const minutes = String(Math.floor(time/60));
   const seconds = String(time % 60);
-  return `Time Left: ${minutes.padStart(2,"0")}:${seconds.padStart(2,"0")}`;
+  return `Time: ${minutes.padStart(2,"0")}:${seconds.padStart(2,"0")}`;
 }
 
 export default function Timer({ totalGameTime, setIsGameOver, textStyle }) {
