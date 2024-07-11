@@ -59,7 +59,7 @@ We would also like to thank:
   using React Native with three.js, which served as a basis for this 
   project.<br/>
   Link to their GitHub: https://github.com/Rakha112<br/>
-  Link to their tutorial: https://www.youtube.com/watch?v=iRavet_Zau8&t=35s
+  Link to their tutorial: https://www.youtube.com/watch?v=iRavet_Zau8
 - The many artists who made the assets for the game, and who made their work 
   available. You can find specific attributions in `assets/ATTRIBUTIONS.md`.
 - Microsoft Designer AI, for the AI art used to add artwork to the games.
