@@ -24,19 +24,8 @@ that crisp’s flavour matches your bag, crosses mean they don’t. At random, a
 Hungry Human will reach down to get a bag of crisps. This is your moment. 
 Get yourself beneath the hand in time and you’ll get points, but be careful! 
 You only get points for the crisps that have the flavour that matches your 
-bag! Once your crisps have been eaten, you will be reincarnated as a new 
-bag! With a different flavour!! Then the cycle continues, forever, or until 
-the timer stops, whichever is sooner.
-
-The indicator at the bottom left tells you what new flavour you will become 
-after being devoured.
-
-In the settings menu you can change parts of the game difficulty, including 
-board size & hand dropping frequency.
-
-In single player as the timer goes on the speed of the falling ingredients 
-increases as well as the speed of the Hungry human hand, which will 
-gradually increase difficulty.
+bag! Once your crisps have been eaten, you go on the search again. Then the 
+cycle continues, forever, or until the timer stops, whichever is sooner.
 
 This game is served by the back-end found here: 
 https://github.com/141Soft/be-ready-salted
