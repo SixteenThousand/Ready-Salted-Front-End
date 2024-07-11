@@ -19,19 +19,19 @@ const InstructionsScreen = ({ navigation }) => {
           The aim of the game is to catch the correct ingredients depending on the flavor of crisps.
         </Text>
         <Text style={localStyles.instructionsList}>
-          Ready Salted: Catches Salt{'\n'}
-          Cheese And Onion: Catches Cheese{'\n'}
-          Smokey Bacon: Catches Bacon{'\n'}
-          Roast Chicken: Catches Chicken
+          Ready Salted: Catch Salt{'\n'}
+          Cheese And Onion: Catch Cheese{'\n'}
+          Smokey Bacon: Catch Bacon{'\n'}
+          Roast Chicken: Catch Chicken{'\n'}
+          Prawn Coctail: Catch Prawns {'\n'}
+          Salt And Vinegar: Catch Vinegar
         </Text>
         <Text style={localStyles.instructionsParagraph}>
-          Once you have a full bag of crisps, you must move to the Hungry Hand position to score your points.
+          To score points, you must move to the Hungry Hand position and empty your bag.
         </Text>
+        <Text style={localStyles.instructionsParagraph}>Once your bag is full you can't catch anymore ingredients, so make sure you empty regularly.</Text>
         <Text style={localStyles.instructionsParagraph}>
           If you catch the wrong ingredients, this will affect how many points you can score.
-        </Text>
-        <Text style={localStyles.instructionsParagraph}>
-          The speed of ingredients falling will increase as the in-game timer counts down, increasing difficulty gradually.
         </Text>
         <Text style={localStyles.instructionsParagraph}>
           Good luck, the Hungry Humans are depending on you!!!
