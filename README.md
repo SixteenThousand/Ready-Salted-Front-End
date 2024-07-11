@@ -1,4 +1,5 @@
 # Ready-Salted: The Game
+
 *Prepare to get salty!*
 
 In Ready Salted, you play as a plucky little bag of crisps, just trying to 
@@ -18,6 +19,24 @@ to catch ones that match your bag’s flavour, matched as follows:
 - Smoky Bacon - A Rasher of Bacon
 - Salt & Vinegar - A Bottle Of Vinegar
 
+<div style="display: flex; justify-content: space-around; margin: 10px 0;">
+    <img
+        src="./assets/readme/Screenshot_2024-07-11_at_10.04.58.png" 
+        alt="catching a good ingredient"
+        height="300"
+    />
+    <img
+        src="./assets/readme/Screenshot_2024-07-11_at_09.38.48.png"
+        alt="catching a bad ingredient"
+        height="300"
+    />
+    <img
+        src="./assets/readme/Screenshot_2024-07-11_at_10.02.19.png"
+        alt="end screen"
+        height="300"
+    />
+</div>
+
 As you catch ingredients, your crisps will get flavoured, which is shown on 
 the bar on the bottom right. Caught ingredients of the right type are 
 highlighted in green, incorrect ones in red. At random, a Hungry Human will 
@@ -31,7 +50,18 @@ This game is served by the back-end found here:
 https://github.com/141Soft/be-ready-salted
 
 
+## Gameplay Footage
+<div style="display:flex; justify-content: center;">
+    <video
+      src="./assets/readme/Record_2024-07-11-10-08-39.mp4"
+      type="video/mp4"
+      height="400"
+      controls
+    />
+</div>
+
 ## Developer Setup Notes
+
 You will need to install android studio to develop this game. If you wish to 
 use a physical device for development, you will not need the GUI and can 
 just install adb.
@@ -49,6 +79,7 @@ using a physical device for development.
 
 
 ## Acknowledgements
+
 This game is being made as a final portfolio piece for the Northcoders 
 software development bootcamp 
 (https://northcoders.com/our-courses/skills-bootcamp-in-software-development).
