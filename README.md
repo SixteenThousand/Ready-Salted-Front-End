@@ -51,14 +51,7 @@ https://github.com/141Soft/be-ready-salted
 
 
 ## Gameplay Footage
-<div style="display:flex; justify-content: center;">
-    <video
-      src="./assets/readme/Record_2024-07-11-10-08-39.mp4"
-      type="video/mp4"
-      height="400"
-      controls
-    />
-</div>
+<a href="https://www.youtube.com/shorts/Z-Axyh7gLUw">https://www.youtube.com/shorts/Z-Axyh7gLUw</a>
 
 ## Developer Setup Notes
 
