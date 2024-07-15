@@ -38,13 +38,13 @@ to catch ones that match your bag’s flavour, matched as follows:
 </div>
 
 As you catch ingredients, your crisps will get flavoured, which is shown on 
-the bar on the bottom right. Caught ingredients of the right type are 
-highlighted in green, incorrect ones in red. At random, a Hungry Human will 
-reach down to get a bag of crisps. This is your moment. Get yourself beneath 
-the hand in time and you’ll get points, but be careful! You only get points 
-for the crisps that have the flavour that matches your bag! Once your crisps 
-have been eaten, you go on the search again. Then the cycle continues, 
-forever, or until the timer stops, whichever is sooner.
+the bar on the bottom. Caught ingredients of the right type are highlighted 
+in green, incorrect ones in red. At random, a Hungry Human will reach down 
+to get a bag of crisps. This is your moment. Get yourself beneath the hand 
+in time and you’ll get points, but be careful! You only get points for the 
+crisps that have the flavour that matches your bag! Once your crisps have 
+been eaten, you go on the search again. Then the cycle continues, forever, 
+or until the timer stops, whichever is sooner.
 
 This game is served by the back-end found here: 
 https://github.com/141Soft/be-ready-salted
@@ -80,8 +80,8 @@ using a physical device for development.
 
 ## Acknowledgements
 
-This game is being made as a final portfolio piece for the Northcoders 
-software development bootcamp 
+This game was made as a final portfolio piece for the Northcoders software 
+development bootcamp 
 (https://northcoders.com/our-courses/skills-bootcamp-in-software-development).
 We would like to thank our tutors & seminar leads for getting us to the 
 point where we could make such an amazing thing.
